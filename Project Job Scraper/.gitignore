@@ -4,12 +4,11 @@ target/
 !**/src/main/**
 !**/src/test/**
 
-*.log
-
 ### STS ###
 .apt_generated
 .classpath
 .factorypath
+.project
 .settings
 .springBeans
 .sts4-cache
@@ -27,4 +26,6 @@ target/
 /nbdist/
 /.nb-gradle/
 build/
-Project Job Scraper/.mvn/wrapper/maven-wrapper.jar
+
+### VS Code ###
+.vscode/
