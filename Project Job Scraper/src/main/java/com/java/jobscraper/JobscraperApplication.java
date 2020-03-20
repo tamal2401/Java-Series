@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.Optional;
 
 @SpringBootApplication
-public class JobscraperApplication implements CommandLineRunner {
+public class JobscraperApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JobscraperApplication.class, args);
 	}
 
-	@Override
+	/*@Override
 	public void run(String... args) throws Exception {
 
 		String mainUrl = "https://www.naukri.com/deloitte-jobs-in-hyderabad";
@@ -65,6 +65,6 @@ public class JobscraperApplication implements CommandLineRunner {
 			return true;
 		}
 		return false;
-	}
+	}*/
 
 }

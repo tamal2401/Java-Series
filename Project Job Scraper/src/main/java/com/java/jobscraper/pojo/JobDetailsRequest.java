@@ -8,8 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class JobDetailsRequest {
-    private String location;
     private String skillSets;
+    private String location;
     private String exp;
 
     public String getLocation() {
@@ -20,12 +20,12 @@ public class JobDetailsRequest {
         return exp;
     }
 
-    public List<String> getSkillSets(){
-        if(null==skillSets && !StringUtils.isBlank(skillSets)){
+    public String getSkillSets(){
+        /*if(null==skillSets && !StringUtils.isBlank(skillSets)){
             String[] skills = skillSets.split(",");
             return Arrays.asList(skills);
-        }
-        return new ArrayList<>();
+        }*/
+        return skillSets;
     }
 
     public void setLocation(String location) {
