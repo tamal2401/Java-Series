@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Coronavirus Tracker Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="../static/css/Layout.css" th:href="@{/css/Layout.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
+</head>
+
+<body>
+<header>
+    <div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#" th:href="@{/welcome}">Home</a>
+                <a class="navbar-brand" href="#" th:href="@{/welcome/global}">Global Data</a>
+                <a class="navbar-brand" href="#" th:href="@{/welcome/india}">Indian Data</a>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+
+    <h2> Global COVID19 data representation dashboard </h2>
+    <br>
+    <h6><span>Total number of Corona Effected people worldwide</span></h6>
+    <div class="num">
+        <span th:text="${TotalCountWorldWide}"></span>
+    </div>
+    <br>
+</div>
+
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Country</th>
+        <th>Current Effected Count</th>
+        <th>Number of changes in past one day</th>
+    </tr>
+    <tr th:each="eachstate : ${allGlobalData}">
+        <td th:text="${eachstate.country}"></td>
+        <td th:text="${eachstate.latestCases}">0</td>
+        <td th:text="${eachstate.changeInCasualties}">0</td>
+    </tr>
+</table>
+<script type="text/javascript">
+    $(".num").counterUp({delay:10,time:1000});
+
+
+
+
+</script>
+</body>
+
+</html>

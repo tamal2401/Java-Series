@@ -20,7 +20,6 @@ public class JobscraperApplication {
 		SpringApplication.run(JobscraperApplication.class, args);
 	}
 
-	/*@Override
 	public void run(String... args) throws Exception {
 
 		String mainUrl = "https://www.naukri.com/deloitte-jobs-in-hyderabad";
@@ -65,6 +64,6 @@ public class JobscraperApplication {
 			return true;
 		}
 		return false;
-	}*/
+	}
 
 }

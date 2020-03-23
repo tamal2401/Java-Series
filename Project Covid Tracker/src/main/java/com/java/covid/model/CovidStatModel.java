@@ -4,7 +4,7 @@ public class CovidStatModel {
 
     private String state;
     private String country;
-    private int latesCases;
+    private int latestCases;
     private int changeInCasualties;
 
     public String getState() {
@@ -23,12 +23,12 @@ public class CovidStatModel {
         this.country = country;
     }
 
-    public int getLatesCases() {
-        return latesCases;
+    public int getLatestCases() {
+        return latestCases;
     }
 
-    public void setLatesCases(int latesCases) {
-        this.latesCases = latesCases;
+    public void setLatestCases(int latestCases) {
+        this.latestCases = latestCases;
     }
 
     public int getChangeInCasualties() {
@@ -44,7 +44,7 @@ public class CovidStatModel {
         return "CovidStatModel{" +
                 "state='" + state + '\'' +
                 ", country='" + country + '\'' +
-                ", latesCases=" + latesCases +
+                ", latesCases=" + latestCases +
                 ", changeInCasualties=" + changeInCasualties +
                 '}';
     }

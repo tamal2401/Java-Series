@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Coronavirus Tracker Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="../static/css/Layout.css" th:href="@{/css/Layout.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
+</head>
+
+<body>
+<header>
+    <div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#" th:href="@{/welcome}">Home</a>
+                <a class="navbar-brand" href="#" th:href="@{/welcome/global}">Global Data</a>
+                <a class="navbar-brand" href="#" th:href="@{/welcome/india}">Indian Data</a>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <h4>
+        This portal is designed to keep us updated about the number of people suffering due to its effect allover
+        the world.<br>
+        Please stay inside and keep youself safe as well as others.
+        Remember a lot of people have suffered and still are suffering and if we dont take precautions now the
+        number will increase.
+    </h4>
+    <br>
+    <h4>## Try to support lockdown period from 23rd Mar 5:00 pm to 31st Mar 9:00 pm</h4>
+
+    <br>
+    <h1>
+        <div class="num"><span th:text="${TotalCountWorldWide}"></span></div>
+    </h1>
+    <br>
+
+    <h6>
+        <u>For Futhur enquiry and details please refer to the below mention helpline contacts:</u>
+    </h6>
+
+    <p>Helpline Number Toll free: 1075
+        <br>
+        Mob: +91-11-23978046</p>
+    <p>West Bengal : 1800313444222, 03323412600</p>
+    <p>Helpline Email ID : ncov2019@gov.in / ncov2019@gmail.com</p>
+    <a href="https://www.mohfw.gov.in/" target="_blank">Official Govt Website by "Ministry of Health and Family Welfare
+        "</a>
+</div>
+<script type="text/javascript">
+    $(".num").counterUp({delay:10,time:1000});
+
+</script>
+</body>
+
+</html>

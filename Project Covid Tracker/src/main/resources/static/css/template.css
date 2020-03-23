@@ -1,0 +1,17 @@
+body {
+    background: #ecf6ff;
+    margin: 30px;
+    padding: 0;
+    font-family: "montserrat",sans-serif;
+    /* background-color: linear-gradient(90deg, #badc58, #ffeaa7); */
+}
+
+h1 {
+    color: black;
+}
+
+.num{
+  font-size: 40px;
+  margin: auto;
+  text-align: center;
+}
