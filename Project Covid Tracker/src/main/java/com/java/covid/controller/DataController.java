@@ -36,7 +36,7 @@ public class DataController {
         return "global_data";
     }
 
-    @GetMapping(path = "/welcome")
+    @GetMapping(path = {"/","/welcome"})
     public String getIndexPage(Model model) throws IOException {
         List<CovidStatModel> globalStats = dataService.getGlobaldata();
         long totalCountWorldWide = globalStats.stream().mapToLong(each -> each.getLatestCases()).sum();

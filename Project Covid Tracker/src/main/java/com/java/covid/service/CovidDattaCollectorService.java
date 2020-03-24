@@ -36,7 +36,7 @@ public class CovidDattaCollectorService {
     }
 
     //@Async("myExecutor")
-    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 0 * * * *")
     @Bean
     public void getCovidData() throws IOException {
         List<CovidStatModel> tempStats = new ArrayList<>();
@@ -129,7 +129,7 @@ public class CovidDattaCollectorService {
     }
 
     //@Async("myExecutor")
-    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 0 * * * *")
     @Bean
     public void getIndianStats() throws IOException {
 
