@@ -36,25 +36,34 @@ public class CovidDattaCollectorService {
     }
 
     //@Async("myExecutor")
-    //@Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 * * * * *")
     @Bean
     public void getCovidData() throws IOException {
         List<CovidStatModel> tempStats = new ArrayList<>();
         RestTemplate template = new RestTemplate();
         String response = template.getForObject(DATA_URL, String.class);
         Reader reader = new StringReader(response);
-        Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader);
+        Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().withNullString("").parse(reader);
         records.forEach(record -> {
             CovidStatModel model = new CovidStatModel();
             model.setState(record.get("Province/State"));
             model.setCountry(record.get("Country/Region"));
-            model.setLatestCases(Integer.parseInt(record.get(record.size()-1)));
-            model.setChangeInCasualties(Integer.parseInt(record.get(record.size()-1))-Integer.parseInt(record.get(record.size()-2)));
+            model.setLatestCases(getCellValue(record, 1));
+            model.setChangeInCasualties(getCellValue(record, 1)-getCellValue(record,2));
             tempStats.add(model);
         });
         List<CovidStatModel> collectionObj = sortDataCountryWise(tempStats);
         this.allStats = collectionObj;
         System.out.println("global data fetched");
+    }
+
+    private int getCellValue(CSVRecord record, int lastCellIndex){
+        int countt = 0;
+        String cellValue = record.get(record.size() - lastCellIndex);
+        if(null==cellValue){
+            cellValue = "0";
+        }
+        return Integer.parseInt(cellValue);
     }
 
     private List<CovidStatModel> sortDataCountryWise(List<CovidStatModel> tempStats) {
@@ -120,7 +129,7 @@ public class CovidDattaCollectorService {
     }
 
     //@Async("myExecutor")
-    //@Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 * * * * *")
     @Bean
     public void getIndianStats() throws IOException {
 

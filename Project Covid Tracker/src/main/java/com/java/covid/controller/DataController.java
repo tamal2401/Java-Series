@@ -20,7 +20,6 @@ public class DataController {
     @GetMapping(path = "/welcome/india")
     public String welcomePage(Model model) throws IOException {
         CovidAllIndiaDataModel allIndiaStats = dataService.getAllIndianStats();
-        System.out.println(allIndiaStats.getTotalCured() +" : "+allIndiaStats.getTotalEffectedCount()+" : "+allIndiaStats.getTotalDeath());
         model.addAttribute("totalCured", allIndiaStats.getTotalCured());
         model.addAttribute("totalEffected", allIndiaStats.getTotalEffectedCount());
         model.addAttribute("totalDeath", allIndiaStats.getTotalDeath());
