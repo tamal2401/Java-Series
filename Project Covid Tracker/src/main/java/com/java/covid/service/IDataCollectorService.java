@@ -1,9 +1,8 @@
 package com.java.covid.service;
 
-import com.java.covid.model.CovidAllIndiaDataModel;
+import com.java.covid.model.india.CovidAllIndiaDataModel;
 
 import java.io.IOException;
-import java.util.List;
 
 public interface IDataCollectorService {
 

@@ -27,6 +27,10 @@
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+    </script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
 </head>
 
 <body>
@@ -53,48 +57,73 @@
                 <a class="nav-link" href="#" th:href="@{/welcome/mapping}">Visualisation</a>
             </li>
         </ul>
+        <input id="dateObj" type="hidden" th:value="${date}"/>
     </div>
 </nav>
-
 <div class="container">
-    <br>
-    <h2> Global COVID19 data representation dashboard </h2>
-    <br>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <h6>Total number of Corona Effected people worldwide : </h6>
-                <div class="num"><span th:text="${TotalCountWorldWide}"></span></div>
-            </div>
-        </div>
-    </div>
-    <br>
-
-
-    <table class="table table-bordered table-striped">
-        <tr>
-            <th>Sl. No</th>
-            <th>Country</th>
-            <th>Current Effected Count</th>
-            <th>Number of changes in past one day</th>
-        </tr>
-        <tr th:each="eachstate, iterationStatus : ${allGlobalData}">
-            <td th:text="${iterationStatus.count}"></td>
-            <td th:text="${eachstate.country}"></td>
-            <td th:text="${eachstate.latestCases}">0</td>
-            <td th:text="${eachstate.changeInCasualties}">0</td>
-        </tr>
-    </table>
+    <div id="container" style="width: 600px; height: 400px; margin: 0 auto"></div>
 </div>
-<footer>
-    <h6><span>** Data may vary as per the data source</span></h6>
-</footer>
 
-<script type="text/javascript">
-    $(".num").counterUp({delay:10,time:1000});
+<script language="JavaScript">
+         $(document).ready(function() {
+            let finalData=[];
+            const data = $('#dateObj').val();
+            var dateSplit = data.substring(1,data.length-1).split(',');
+            dateSplit.forEach(function(elem){
+               finalData.push(String(elem.trim()));
+            });
+            console.log(finalData);
+            var title = {
+               text: 'Effected Count VS Date'
+            };
+            var subtitle = {
+               text: ''
+            };
+            var xAxis = {               
+               categories: finalData
+            };
+            var yAxis = {
+               title: {
+                  text: 'Count'
+               },
+               plotLines: [{
+                  value: 0,
+                  width: 1,
+                  color: '#808080'
+               }]
+            };
+            var tooltip = {
+               valueSuffix: ''
+            }
+            var legend = {
+               layout: 'vertical',
+               align: 'right',
+               verticalAlign: 'middle',
+               borderWidth: 0
+            };
+            var series =  [{
+                  name: 'Active Count',
+                  data: [[${count}]]
+               },
+               {
+                  name: 'Recovered',
+                  data: [[${recovered}]]
+               }
+            ];
+
+            var json = {};
+            json.title = title;
+            json.subtitle = subtitle;
+            json.xAxis = xAxis;
+            json.yAxis = yAxis;
+            json.tooltip = tooltip;
+            json.legend = legend;
+            json.series = series;
+
+            $('#container').highcharts(json);
+         });
+
 
 </script>
 </body>
-
 </html>
