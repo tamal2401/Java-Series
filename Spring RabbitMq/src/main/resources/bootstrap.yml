@@ -4,8 +4,13 @@ server:
 spring:
   application:
     name: RabbitMqDemoApplication
+  rabbitmq:
+    host: localhost
+    port: 5672
 
 rabbitmq:
   exchange:
     name: BookExchange
     routingkey: rabbitmqkey01
+  queue:
+    name: BookListner
