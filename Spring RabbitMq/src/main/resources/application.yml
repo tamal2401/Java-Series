@@ -5,6 +5,8 @@ spring:
   rabbitmq:
     host: 192.168.99.100
     port: 15672
+    username: guest
+    password: guest
 
 rabbitmq:
   queue:
@@ -12,3 +14,4 @@ rabbitmq:
   exchange:
     name: BookExchange
     routingkey: rabbitmqkey01
+
