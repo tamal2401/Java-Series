@@ -1,11 +1,8 @@
-server:
-  port: 8090
-
 spring:
   application:
     name: RabbitMqDemoApplication
 
 logging:
   level:
-    org.springframework: ERROR
-    com.java.rabbitmq: INFO
+    org.springframework: DEBUG
+    com.java.rabbitmq: DEBUG
