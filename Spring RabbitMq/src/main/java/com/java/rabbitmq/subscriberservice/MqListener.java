@@ -1,5 +1,7 @@
 package com.java.rabbitmq.subscriberservice;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.MessageListener;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MqListener {
+
+    private final Logger LOG = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
     @Autowired
     Queue queue;
@@ -25,7 +29,7 @@ public class MqListener {
 
     public MessageListener listener(){
         MessageListener listener = (msg)->{
-            System.out.println("Recived Messege is :: ".concat(new String(msg.getBody())));
+            LOG.info("Recived Messege is :: ".concat(new String(msg.getBody())));
         };
         return listener;
     }
