@@ -1,0 +1,47 @@
+server:
+  port: 8092
+eureka:
+  client:
+    service-url: http://localhost:8090/eureka
+spring:
+  boot:
+    admin:
+      url: http://localhost:8093
+      username: admin
+      password: admin
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+
+employee:
+  management:
+    roles:
+      - Developer
+      - QA
+      - Scrum Master
+      - PO
+      - Team Lead
+      - Manager
+    designations:
+      associate:
+        - Developer
+        - QA
+      analyst:
+        - Developer
+        - QA
+      consultant:
+        - Developer
+        - QA
+        - Scrum Master
+      senior_consultant:
+        - Scrum Master
+        - PO
+        - Team Lead
+      project_maneger:
+        - PO
+        - Manager

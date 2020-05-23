@@ -1,20 +1,19 @@
 package com.java.spring.consumer.controllers;
 
-import com.java.spring.consumer.controllers.model.Employee;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+		import com.java.spring.consumer.controllers.model.DomainEmployee;
+		import com.java.spring.consumer.services.PersistanceServices;
+		import org.springframework.beans.factory.annotation.Autowired;
+		import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ConsumerControllerClient{
 
 	@Autowired
-	RestTemplate template;
+	PersistanceServices service;
 
-	@GetMapping(value="/getemployee", produces = "application/json")
-	public Employee getEmployee(){
-		Employee emp = template.getForObject("http://employee-producer/employee", Employee.class);
-		return emp;
+	@RequestMapping(method = RequestMethod.POST, value = "/consumer/newemployee")
+	String persistEmployee(@RequestBody DomainEmployee dEmp){
+		String empId = service.saveEmployee(dEmp).getEmpId();
+		return empId;
 	}
 }

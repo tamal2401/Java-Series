@@ -1,16 +1,25 @@
 package com.java.spring.producer.model;
 
 public class Employee {
-	private String empId;
+	// private String empId;
 	private String name;
 	private String designation;
 	private double salary;
+	private int exp;
 
 	public Employee() {
 	}
 
 	public String getName() {
 		return name;
+	}
+
+	public int getExp() {
+		return exp;
+	}
+
+	public void setExp(int exp) {
+		this.exp = exp;
 	}
 
 	public void setName(String name) {
@@ -31,14 +40,6 @@ public class Employee {
 
 	public void setSalary(double salary) {
 		this.salary = salary;
-	}
-
-	public String getEmpId() {
-		return empId;
-	}
-
-	public void setEmpId(String empId) {
-		this.empId = empId;
 	}
 
 }

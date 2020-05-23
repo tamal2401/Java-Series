@@ -1,0 +1,11 @@
+server:
+  port: 8090
+management:
+  security:
+    enabled: false
+spring:
+  boot:
+    admin:
+      url: http://localhost:8093
+      username: admin
+      password: admin

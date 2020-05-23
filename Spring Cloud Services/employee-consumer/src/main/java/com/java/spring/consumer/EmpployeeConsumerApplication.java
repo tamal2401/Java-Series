@@ -10,10 +10,10 @@ import org.springframework.web.client.RestTemplate;
 
 @EnableEurekaClient
 @SpringBootApplication
-public class SpringBootHelloWorldApplication {
+public class EmpployeeConsumerApplication {
 
 	public static void main(String[] args)  {
-		SpringApplication.run(SpringBootHelloWorldApplication.class, args);
+		SpringApplication.run(EmpployeeConsumerApplication.class, args);
 	}
 
 	@Bean
