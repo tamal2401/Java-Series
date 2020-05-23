@@ -1,4 +1,4 @@
-package com.javainuse.controllers.model;
+package com.java.spring.consumer.controllers.model;
 
 public class Employee {
     private String empId;

@@ -1,4 +1,4 @@
-package com.javainuse;
+package com.java.spring.cloud;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

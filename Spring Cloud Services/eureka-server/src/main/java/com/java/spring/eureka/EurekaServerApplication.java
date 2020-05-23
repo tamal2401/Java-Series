@@ -1,4 +1,4 @@
-package com.javainuse;
+package com.java.spring.eureka;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

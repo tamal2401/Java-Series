@@ -1,4 +1,4 @@
-package com.javainuse.model;
+package com.java.spring.producer.model;
 
 public class Employee {
 	private String empId;

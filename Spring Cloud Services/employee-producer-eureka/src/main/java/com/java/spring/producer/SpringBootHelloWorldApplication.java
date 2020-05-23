@@ -1,4 +1,4 @@
-package com.javainuse;
+package com.java.spring.producer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
