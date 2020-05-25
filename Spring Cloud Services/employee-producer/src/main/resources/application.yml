@@ -19,8 +19,8 @@ feign:
   client:
     config:
       default:
-        connectTimeout: 5000
-        readTimeout: 5000
+        connectTimeout: 20000
+        readTimeout: 20000
         loggerLevel: basic
 
 employee:
