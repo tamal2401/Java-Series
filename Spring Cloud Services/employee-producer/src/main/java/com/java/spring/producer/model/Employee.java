@@ -1,6 +1,9 @@
 package com.java.spring.producer.model;
 
+import com.sun.istack.internal.NotNull;
+
 public class Employee {
+
 	private String name;
 	private String designation;
 	private int salary;

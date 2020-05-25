@@ -2,6 +2,7 @@ package com.java.spring.consumer.controllers.model;
 
 import org.springframework.data.annotation.Id;
 
+import javax.annotation.Generated;
 import java.util.List;
 
 public class DomainEmployee {

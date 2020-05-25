@@ -1,5 +1,6 @@
 package com.java.spring.producer.controllers;
 
+import com.java.spring.producer.configuration.EmployeeConfiguration;
 import com.java.spring.producer.model.DomainEmployee;
 import com.java.spring.producer.model.Employee;
 import com.java.spring.producer.service.EmpPersistanceService;
@@ -14,26 +15,29 @@ import java.util.ArrayList;
 @Controller
 public class MainController {
 
-	@Autowired
-	EmpPersistanceService service;
+    @Autowired
+    EmpPersistanceService service;
 
-	@GetMapping("/home")
-	public String homePage(Model model){
-		model.addAttribute("employee", new Employee());
-		return "index";
-	}
+    @Autowired
+    EmployeeConfiguration employeeConfigService;
 
-	@ResponseBody
-	@RequestMapping(value = "/create/employee", method = RequestMethod.POST)
-	public String firstPage(@RequestBody Employee employee) {
-		DomainEmployee dEmp = new DomainEmployee();
-		dEmp.setName(employee.getName())
-				.setDesignation(employee.getDesignation())
-				.setExp(employee.getExp())
-				.setRoles(new ArrayList<>())
-				.setSalary(employee.getSalary());
-		String empId = service.storeData(dEmp);
-		return empId;
-	}
+    @GetMapping("/home")
+    public String homePage(Model model) {
+        model.addAttribute("employee", new Employee());
+        return "index";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/create/employee", method = RequestMethod.POST)
+    public String firstPage(Employee employee) {
+        DomainEmployee dEmp = new DomainEmployee();
+        dEmp.setName(employee.getName())
+                .setDesignation(employee.getDesignation())
+                .setExp(employee.getExp())
+                .setRoles(employeeConfigService.getDesignations().get(employee.getDesignation().toLowerCase()))
+                .setSalary(employee.getSalary());
+        String empId = service.storeData(dEmp);
+        return empId;
+    }
 
 }

@@ -2,9 +2,12 @@ server:
   port: 8091
 eureka:
   client:
+    enabled: true
     service-url:
       defaultZone: http://localhost:8761/eureka
     register-with-eureka: true
+  instance:
+    prefer-ip-address: true
 #spring:
 #  boot:
 #    admin:
@@ -28,7 +31,7 @@ employee:
       - Scrum Master
       - PO
       - Team Lead
-      - Manager
+      - PM
     designations:
       associate:
         - Developer
@@ -44,6 +47,6 @@ employee:
         - Scrum Master
         - PO
         - Team Lead
-      project_maneger:
+      manager:
         - PO
-        - Manager
+        - PM
