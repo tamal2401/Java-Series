@@ -9,7 +9,7 @@ public class DomainEmployee {
 	private String name;
 	private String designation;
 	private List<String> roles;
-	private double salary;
+	private int salary;
 	private int exp;
 
 	public String getEmpId() {
@@ -48,11 +48,11 @@ public class DomainEmployee {
 		return this;
 	}
 
-	public double getSalary() {
+	public int getSalary() {
 		return salary;
 	}
 
-	public DomainEmployee setSalary(double salary) {
+	public DomainEmployee setSalary(int salary) {
 		this.salary = salary;
 		return this;
 	}
