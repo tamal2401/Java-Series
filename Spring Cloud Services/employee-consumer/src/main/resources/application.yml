@@ -1,15 +1,20 @@
 server:
-  port: 8091
-eureka:
-  client:
-    service-url: http://localhost:8090/eureka
+  port: 8081
+
+#spring:
+#  boot:
+#    admin:
+#      url: http://localhost:8093
+#      username: admin
+#      password: admin
 spring:
-  boot:
-    admin:
-      url: http://localhost:8093
-      username: admin
-      password: admin
   data:
     mongodb:
       host: 192.168.99.100
       port: 27017
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true
