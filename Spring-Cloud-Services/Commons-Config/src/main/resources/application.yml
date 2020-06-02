@@ -6,9 +6,9 @@ spring:
     config:
       server:
         git:
-          uri: "https://github.com/tamal2401/Java-Series/Spring%Cloud%Services/Config%files"
+          uri: https://github.com/tamal2401/Java-Series
           cloneOnStart: true
 
 management:
   security:
-    enabled=false:
+    enabled: false
