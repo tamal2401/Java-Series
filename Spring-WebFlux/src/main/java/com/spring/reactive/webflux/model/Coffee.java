@@ -1,4 +1,4 @@
-package com.spring.reactive.webflux;
+package com.spring.reactive.webflux.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

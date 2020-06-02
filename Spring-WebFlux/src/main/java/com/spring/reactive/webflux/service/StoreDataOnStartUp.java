@@ -1,5 +1,6 @@
-package com.spring.reactive.webflux;
+package com.spring.reactive.webflux.service;
 
+import com.spring.reactive.webflux.model.Coffee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;

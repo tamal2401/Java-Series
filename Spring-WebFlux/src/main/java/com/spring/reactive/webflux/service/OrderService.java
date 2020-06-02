@@ -1,5 +1,7 @@
-package com.spring.reactive.webflux;
+package com.spring.reactive.webflux.service;
 
+import com.spring.reactive.webflux.model.Coffee;
+import com.spring.reactive.webflux.model.CoffeeOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;

@@ -1,8 +1,8 @@
 package com.spring.reactive.webflux.controller;
 
-import com.spring.reactive.webflux.Coffee;
-import com.spring.reactive.webflux.CoffeeOrder;
-import com.spring.reactive.webflux.OrderService;
+import com.spring.reactive.webflux.model.Coffee;
+import com.spring.reactive.webflux.model.CoffeeOrder;
+import com.spring.reactive.webflux.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
