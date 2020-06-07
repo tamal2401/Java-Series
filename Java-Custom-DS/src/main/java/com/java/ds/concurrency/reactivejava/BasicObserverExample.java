@@ -2,6 +2,8 @@ package com.java.ds.concurrency.reactivejava;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableSource;
+import io.reactivex.disposables.Disposable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,10 +16,11 @@ public class BasicObserverExample {
 
         observable.filter(each -> each.getStockname().equalsIgnoreCase("google"))
                 .map(each -> {
-                    each.setStockValue(each.getStockValue()+1234);
+                    each.setStockValue(each.getStockValue() + 1234);
                     return each;
                 })
-                .subscribe(stock -> System.out.println(stock.toString()));
+                .subscribe(stock -> System.out.println(stock.toString()),
+                            error -> System.out.println(error));
     }
 
     private static Observable<Stock> getObserver() {
@@ -49,7 +52,9 @@ class Stock {
 
     public Stock(String stockname, int stockValue) {
         this.stockname = stockname;
+        this.stockname = stockname;
         this.stockValue = stockValue;
+        throw new RuntimeException("ooopps!!");
     }
 
     public String getStockname() {
