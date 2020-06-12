@@ -1,0 +1,33 @@
+server:
+  port: 8090
+
+logging:
+  level:
+    com:
+      spring:
+        batch: TRACE
+    org:
+      springframework: INFO
+
+spring:
+  application:
+    name: Batch_Sales_Reader
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: admin
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+  batch:
+    initialize-schema: EMBEDDED
+    table-prefix: test.BATCH_
+    schema: org/springframework/batch/core/schema-mysql.sql
+    job:
+      enabled: false
+
+local:
+  file:
+    path: /resouces/csv/sales_data.csv
