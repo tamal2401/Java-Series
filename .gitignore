@@ -28,3 +28,6 @@ target/
 /.nb-gradle/
 build/
 Project Job Scraper/.mvn/wrapper/maven-wrapper.jar
+Spring-Security/.mvn/wrapper/MavenWrapperDownloader.java
+Spring-Security/.mvn/wrapper/maven-wrapper.properties
+Spring-Security/.mvn/wrapper/maven-wrapper.jar
