@@ -3,18 +3,24 @@ package com.spirng.security.springsecurity.controller;
 import com.spirng.security.springsecurity.domain.UserModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/security")
+@RestController
 public class SecurityController {
 
     @GetMapping("/welcome")
     public String welcomePage(Model model, @RequestBody UserModel user){
-        model.addAttribute("user", "tamal");
+        model.addAttribute("user", user.getUserName());
         return "index";
+    }
+
+    @GetMapping("/user")
+    public String user(){
+        return "<h2>User</h2>";
+    }
+
+    @GetMapping("/admin")
+    public String admin(){
+        return "<h2>Admin</h2>";
     }
 }

@@ -2,4 +2,5 @@ spring:
   security:
     user:
       name: tamal
-      password: admin
+      password: test
+      role: admin
