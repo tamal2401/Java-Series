@@ -21,18 +21,9 @@ public class CustomAuthenticaionManager extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
-                .withDefaultSchema()
-                .dataSource(source)
-                .withUser(
-                        User.withUsername("tamal")
-                            .password("test")
-                            .roles("admin")
-                )
-                .withUser(
-                        User.withUsername("user")
-                                .password("test")
-                                .roles("user")
-                );
+                .dataSource(source);
+                //to override sql query to fetch data from db
+                //.authoritiesByUsernameQuery();
     }
 
     @Override

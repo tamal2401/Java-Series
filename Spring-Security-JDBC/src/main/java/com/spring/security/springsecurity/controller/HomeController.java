@@ -4,13 +4,14 @@ import com.spring.security.springsecurity.domain.UserModel;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class HomeController {
 
     // acessed for authenticated users with roles any
-    @GetMapping("/")
-    public String welcomePage(Model model, @RequestBody UserModel user){
-        model.addAttribute("user", user.getUserName());
+    @GetMapping("/welcome")
+    public String welcomePage(){
         return "<h2>Welcome to Home page</h2>";
     }
 
