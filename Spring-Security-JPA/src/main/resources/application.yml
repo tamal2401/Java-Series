@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: spring security JPA
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 9000
