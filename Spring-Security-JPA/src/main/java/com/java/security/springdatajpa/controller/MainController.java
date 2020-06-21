@@ -23,4 +23,17 @@ public class MainController {
     public String admin(){
         return "<h2>Admin</h2>";
     }
+	
+	// For custom login and logout page rendering [custome login page routing is added in SecurityConfiguration.class]
+    
+    @RequestMapping("/login.html")  
+    public String login() {  
+        return "login.html";  
+    }  
+      
+    @RequestMapping("/login-error.html")  
+    public String loginError(Model model) {  
+        model.addAttribute("loginError", true);  
+        return "login.html";  
+    } 
 }

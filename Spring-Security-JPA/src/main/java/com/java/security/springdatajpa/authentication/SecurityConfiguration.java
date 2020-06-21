@@ -1,4 +1,4 @@
-package com.java.security.springdatajpa.authentication;
+	package com.java.security.springdatajpa.authentication;
 
 import com.java.security.springdatajpa.domain.User;
 import com.java.security.springdatajpa.repository.MysqlRepository;
@@ -45,6 +45,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .and()
                 .formLogin();
+				// to provide a custom login page endpoint
+			/*  .loginPage("/login.html")  
+                .failureUrl("/login-error.html")  
+                .permitAll();  */
     }
 
     @Bean
