@@ -1,0 +1,12 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: Java-Mail-API
+
+cred:
+  user:
+    secret: static_secret_to_encrypt_and_decrypt_pwd
+    username: server_username
+    pwd: server_pwd
