@@ -6,7 +6,8 @@ import { CommentWallComponent } from './comment-wall/comment-wall.component';
 
 
 const routes: Routes = [
-  {path:'', component: AuthenticationComponent},
+  {path: '', redirectTo: '/login', pathMatch: 'full'},
+  {path:'login', component: AuthenticationComponent},
   {path:'profile', component: ProfileComponent},
   {path:'wall', component: CommentWallComponent}
 ];
