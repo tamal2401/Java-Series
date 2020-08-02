@@ -28,6 +28,11 @@ export class AuthenticationComponent implements OnInit {
     }
     this.user = new User(this.form.control.value.userName, this.form.control.value.pwd);
     console.log(this.user);
+    if(this.isLoginMode){
+      this.authService.login(this.user);
+    }else{
+      this.authService.signup(this.user);
+    }
     this.route.navigate(['profile']);
   }
 
