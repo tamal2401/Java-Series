@@ -1,0 +1,11 @@
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" routerLink="profile">
+        <img src="/assets/images/img1.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+          ssSSHHH!!!
+    </a>
+    <ul class="nav navbar-nav navbar-right">
+        <li *ngIf="isAuthenticated">
+            <a style="cursor: pointer;" (click)="onLogout()" [ngStyle]="{color:'white'}">Logout</a>
+        </li>
+    </ul>
+</nav>

@@ -10,13 +10,15 @@ import { AppComponent } from './app.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CommentWallComponent } from './comment-wall/comment-wall.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthenticationComponent,
     ProfileComponent,
-    CommentWallComponent
+    CommentWallComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
