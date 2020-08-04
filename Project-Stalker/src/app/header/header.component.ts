@@ -5,22 +5,22 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  isAuthenticated: boolean = true;
 
-  isAuthenticated:boolean=true;
-
-  constructor(private authService : AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
+    this.authService.user.subscribe((user) => {
+      this.isAuthenticated = !!user;
+    });
   }
 
-  onLogout(){
-    this.authService.user.subscribe(user => {
-      this.authService.user.next(null);
-      this.isAuthenticated = false;
-      this.router.navigate(['/login']);
-    });
+  onLogout() {
+    this.authService.user.next(null);
+    this.isAuthenticated = false;
+    this.router.navigate(['/login']);
   }
 }
