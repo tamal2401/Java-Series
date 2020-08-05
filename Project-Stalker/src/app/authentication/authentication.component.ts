@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User } from '../model/User';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth-service';
 import { Observable } from 'rxjs';
 import { AuthResponse } from '../model/authresponse';
-import { error } from 'console';
 
 @Component({
   selector: 'app-authentication',
