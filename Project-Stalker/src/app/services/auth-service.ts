@@ -1,7 +1,7 @@
-import { BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { BehaviorSubject, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 import { LoggedInUser } from '../model/loogedInUser';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { User } from '../model/User';
 import { AuthResponse } from '../model/authresponse';
@@ -11,7 +11,9 @@ import { Injectable } from '@angular/core';
   providedIn:'root'
 })
 export class AuthService {
+
   user = new BehaviorSubject<LoggedInUser>(null);
+  isAuthenticated = new BehaviorSubject<Boolean>(false);
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -29,6 +31,7 @@ export class AuthService {
     return this.http
       .post<AuthResponse>('http://localhost:8080/login', user)
       .pipe(
+        catchError(this.handleError),
         tap((response) => {
           this.handleAuthentication(response);
         })
@@ -46,6 +49,12 @@ export class AuthService {
     localStorage.setItem('stalker', JSON.stringify(user));
   }
 
+  logOut() {
+    this.user.next(null);
+    this.isAuthenticated.next(false);
+    this.router.navigate(['/login']);
+  }
+
   autoLogin() {
     const temp: {
       user: string;
@@ -59,6 +68,10 @@ export class AuthService {
 
     const loggedUser = new LoggedInUser(temp.user, temp.email, temp.token);
     this.user.next(loggedUser);
-    this.router.navigate(['profile']);
+    this.isAuthenticated.next(true);
+  }
+
+  handleError(error:HttpErrorResponse){
+    return throwError(error.message);
   }
 }
