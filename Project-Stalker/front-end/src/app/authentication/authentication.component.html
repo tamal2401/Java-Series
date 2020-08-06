@@ -11,6 +11,21 @@
         <span class="help-block" *ngIf="!userName.valid && userName.touched" [ngStyle]="{color:'red'}">Please enter a
           User Name</span>
       </div>
+      <div class="form-group" *ngIf="!isLoginMode">
+        <label for="email">Email</label>
+        <input
+        type="text"
+        id="email"
+        class="form-control"
+        ngModel
+        required
+        name="email"
+        #email="ngModel"
+        pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+        >
+        <span class="help-block" *ngIf="!email.valid && email.touched" [ngStyle]="{color:'red'}">Please enter a
+          email</span>
+      </div>
       <div class="form-group">
         <label for="pwd">Password</label>
         <input type="password" id="pwd" class="form-control" ngModel required name="pwd"
