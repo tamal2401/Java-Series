@@ -17,18 +17,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    // let posts = new Observable<Post[]>();
-    // posts = this.dataService.getPosts();
-    // this.subscriber = posts.subscribe(res => {
-    //   if (res != null) {
-    //     this.postArr = res;
-    //     this.isEmpty = false;
-    //   }
-    // });
-    this.postArr = this.dataService.getPosts();
-    if(this.postArr!=null){
-      this.isEmpty=false;
-    }
+    let posts = new Observable<Post[]>();
+    posts = this.dataService.getPosts();
+    this.subscriber = posts.subscribe(res => {
+      if (res != null) {
+        this.postArr = res;
+        this.isEmpty = false;
+      }
+    });
+    // this.postArr = this.dataService.getPosts();
+    // if(this.postArr!=null){
+    //   this.isEmpty=false;
+    // }
     console.log(this.isEmpty)
   }
 

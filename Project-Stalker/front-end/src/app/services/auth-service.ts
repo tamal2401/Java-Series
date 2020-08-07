@@ -46,6 +46,7 @@ export class AuthService {
       response.token
     );
     this.user.next(user);
+    console.log('user omitted');
     localStorage.setItem('stalker', JSON.stringify(user));
   }
 

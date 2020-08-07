@@ -46,6 +46,7 @@ export class AuthenticationComponent implements OnInit {
     }
     resObs.subscribe(
       (res) => {
+        console.log('call successfull');
         this.route.navigate(['profile']);
       },
       (errorMsg) => {

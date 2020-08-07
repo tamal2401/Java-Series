@@ -17,9 +17,11 @@ constructor(private authService : AuthService,
     return this.authService.user.pipe(
       take(1),
       map(user => {
+        console.log('user is :'+!!user);
         if (!!user) {
           return;
         }
+        console.log('is!!');
         return this.router.createUrlTree(['/login']);
       })
     );

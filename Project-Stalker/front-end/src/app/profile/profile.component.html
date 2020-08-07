@@ -1,18 +1,14 @@
 <div class="row" *ngIf="isEmpty">
-    <p>No Post</p>
+  <p>No Post</p>
 </div>
 <div *ngIf="!isEmpty">
-    <!-- <div class="row" *ngFor="let each of postArr; let i=index">
-        <h3>{{ each.postTime }}</h3>
-        <p>{{ each.post }}</p>
-    </div> -->
-    <div class="card border-dark bg-light mb-3" *ngFor="let each of postArr; let i=index">
-        <div class="card-header">
-            Comment Posted : {{each.postTime}}
-          </div>
-        <div class="card-body">
-            <p class="card-text">{{each.post}}.</p>
-            <a href="#" class="card-link">Share</a>
-        </div>
+  <div class="card border-dark bg-light mb-3" *ngFor="let each of postArr; let i=index">
+    <div class="card-header">
+      Comment Posted : {{each.postTime}}
     </div>
+    <div class="card-body">
+      <p class="card-text">{{each.post}}.</p>
+      <a href="#" class="card-link">Share</a>
+    </div>
+  </div>
 </div>

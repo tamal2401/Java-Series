@@ -13,7 +13,7 @@ export class DataService {
     constructor(private http: HttpClient, private router: Router) { }
 
     getPosts() {
-        //return this.http.get<Post[]>('http:localhost:8080/posts');
-        return this.arrofPosts;
+        return this.http.get<Post[]>('http:localhost:8080/posts');
+        //return this.arrofPosts;
     }
 }
