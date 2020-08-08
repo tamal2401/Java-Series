@@ -13,7 +13,6 @@ import { Injectable } from '@angular/core';
 export class AuthService {
 
   user = new BehaviorSubject<LoggedInUser>(null);
-  isAuthenticated = new BehaviorSubject<Boolean>(false);
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -51,8 +50,8 @@ export class AuthService {
   }
 
   logOut() {
+    localStorage.removeItem('stalker');
     this.user.next(null);
-    this.isAuthenticated.next(false);
     this.router.navigate(['/login']);
   }
 
@@ -69,7 +68,6 @@ export class AuthService {
 
     const loggedUser = new LoggedInUser(temp.user, temp.email, temp.token);
     this.user.next(loggedUser);
-    this.isAuthenticated.next(true);
   }
 
   handleError(error:HttpErrorResponse){

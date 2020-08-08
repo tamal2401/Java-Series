@@ -20,8 +20,8 @@ export class AuthenticationComponent implements OnInit {
   constructor(private route: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.authService.isAuthenticated.subscribe((isAuthFlag) => {
-      if (isAuthFlag) {
+    this.authService.user.subscribe((user) => {
+      if (!!user) {
         this.route.navigate(['profile']);
       }
     });
@@ -47,7 +47,7 @@ export class AuthenticationComponent implements OnInit {
     resObs.subscribe(
       (res) => {
         console.log('call successfull');
-        this.route.navigate(['profile']);
+        this.route.navigate(['/profile']);
       },
       (errorMsg) => {
         console.log(errorMsg);
