@@ -8,4 +8,10 @@ export class LoggedInUser {
         this.email = email;
         this.token = token;
     }
+
+
+    public get getUserName() : string {
+      return this.user;
+    }
+
 }

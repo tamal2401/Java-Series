@@ -11,7 +11,7 @@ const routes: Routes = [
   {path:'login', component: AuthenticationComponent},
   //{path:'profile',canActivate: [AuthGuard], component: ProfileComponent},
   {path:'profile', component: ProfileComponent},
-  {path:'wall', component: CommentWallComponent}
+  {path:'wall/:user', component: CommentWallComponent}
 ];
 
 @NgModule({

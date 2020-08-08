@@ -37,16 +37,13 @@ export class AuthenticationComponent implements OnInit {
     );
     let resObs = new Observable<AuthResponse>();
     if (this.isLoginMode) {
-      console.log(this.user);
       resObs = this.authService.login(this.user);
     } else {
       this.user.email = this.form.control.value.email;
-      console.log(this.user);
       resObs = this.authService.signup(this.user);
     }
     resObs.subscribe(
       (res) => {
-        console.log('call successfull');
         this.route.navigate(['/profile']);
       },
       (errorMsg) => {

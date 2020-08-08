@@ -45,7 +45,6 @@ export class AuthService {
       response.token
     );
     this.user.next(user);
-    console.log('user omitted');
     localStorage.setItem('stalker', JSON.stringify(user));
   }
 
@@ -71,6 +70,10 @@ export class AuthService {
   }
 
   handleError(error:HttpErrorResponse){
-    return throwError(error.message);
+    console.log(error);
+    // if(error.headers. === "Unknown Error"){
+
+    // }
+    return throwError('An Unknown Error occurred');
   }
 }

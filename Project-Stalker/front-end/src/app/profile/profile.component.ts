@@ -4,6 +4,8 @@ import { DataService } from '../services/data-service';
 import { Observable, Unsubscribable, Subscription } from 'rxjs';
 import { AuthService } from '../services/auth-service';
 import { Router } from '@angular/router';
+import { User } from '../model/User';
+import { LoggedInUser } from '../model/loogedInUser';
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +18,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   postArr: Array<Post> = [];
   subscriber: Subscription;
   loggedIn: boolean = false;
+  loggedInUser : LoggedInUser = null;
 
   constructor(
     private dataService: DataService,
@@ -25,13 +28,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.authService.user.subscribe((user) => {
+      this.loggedInUser = user;
       this.loggedIn = !!user;
     });
     if (!this.loggedIn) {
       this.router.navigate(['login']);
     } else {
       let posts = new Observable<Post[]>();
-      posts = this.dataService.getPosts();
+      posts = this.dataService.getPosts(this.loggedInUser.getUserName);
       this.subscriber = posts.subscribe((res) => {
         if (res != null) {
           this.postArr = res;
@@ -44,7 +48,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     // if(this.postArr!=null){
     //   this.isEmpty=false;
     // }
-    console.log(this.isEmpty);
   }
 
   ngOnDestroy() {

@@ -30,8 +30,8 @@ public class PostsController {
         return auth;
     }
 
-    @GetMapping("/posts")
-    public List<Post> getPosts() {
+    @GetMapping("/posts/{userName}")
+    public List<Post> getPosts(@PathVariable String userName) {
         Post post1=new Post();
         post1.setPost("test1");
         post1.setPostTime("11-11-2020 12:40");

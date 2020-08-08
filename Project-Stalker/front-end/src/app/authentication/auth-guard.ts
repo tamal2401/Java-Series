@@ -13,15 +13,12 @@ constructor(private authService : AuthService,
             private router: Router){}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | import("@angular/router").UrlTree | import("rxjs").Observable<boolean | import("@angular/router").UrlTree> | Promise<boolean | import("@angular/router").UrlTree> {
-    console.log("guard working");
     return this.authService.user.pipe(
       take(1),
       map(user => {
-        console.log('user is :'+!!user);
         if (!!user) {
           return;
         }
-        console.log('is!!');
         return this.router.createUrlTree(['/login']);
       })
     );

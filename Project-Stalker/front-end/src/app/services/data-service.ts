@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Post } from '../model/post';
+import { WallComment } from '../model/wallcomment';
 
 @Injectable({
     providedIn: "root"
@@ -12,8 +13,13 @@ export class DataService {
 
     constructor(private http: HttpClient, private router: Router) { }
 
-    getPosts() {
-        return this.http.get<Post[]>('http://localhost:8080/posts');
-        //return this.arrofPosts;
+    getPosts(name:string) {
+        return this.http.get<Post[]>(`http://localhost:8080/posts/${name}`);
+    }
+
+    postComment(commentObj : WallComment){
+      const userName = commentObj.getUserName;
+      this.http.post<string>(`http://localhost:8080/wall/${userName}`,
+      commentObj);
     }
 }
