@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth-service';
 import { Router } from '@angular/router';
 import { User } from '../model/User';
 import { LoggedInUser } from '../model/loogedInUser';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-profile',
@@ -19,11 +20,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
   subscriber: Subscription;
   loggedIn: boolean = false;
   loggedInUser : LoggedInUser = null;
+  wallUrl : string = 'http://surprise';
 
   constructor(
     private dataService: DataService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private clipboard : Clipboard
   ) {}
 
   ngOnInit() {
@@ -52,5 +55,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     // this.subscriber.unsubscribe();
+  }
+
+  copy(){
+    this.clipboard.copy(this.wallUrl);
   }
 }

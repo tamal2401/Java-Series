@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import {MatCardModule} from '@angular/material/card';
+import {ClipboardModule} from '@angular/cdk/clipboard';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,7 +27,8 @@ import { HeaderComponent } from './header/header.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    MatCardModule
+    MatCardModule,
+    ClipboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
