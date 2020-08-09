@@ -3,10 +3,10 @@
     <a href="#" class="alert-link" routerLink="/profile">Return to Profile</a>
   </div>
   <div class="text-center">
-    <h4>Post a messege for <span [ngStyle]="{'font-size':'20px'}" class="font-italic">{{ postee }}</span></h4>
+    <h4>Post a messege for <span [ngStyle]="{'font-size':'30px'}" class="font-italic">{{ postee }}</span></h4>
     <textarea name="comment" cols="80" rows="4" [(ngModel)]="comment"></textarea>
     <br>
-    <button class="btn btn-primary">Post Comment</button>
+    <button class="btn btn-primary" (click)="postComment()" [disabled]="!comment">Post Comment</button>
   </div>
   <hr>
   <div>

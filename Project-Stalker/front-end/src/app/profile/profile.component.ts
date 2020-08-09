@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   subscriber: Subscription;
   loggedIn: boolean = false;
   loggedInUser : LoggedInUser = null;
-  wallUrl : string = 'http://surprise';
+  profileUrl : string = 'http://surprise';
 
   constructor(
     private dataService: DataService,
@@ -35,8 +35,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.loggedIn = !!user;
     });
     if (!this.loggedIn) {
+      console.log(1);
       this.router.navigate(['login']);
     } else {
+      console.log(2);
       let posts = new Observable<Post[]>();
       posts = this.dataService.getPosts(this.loggedInUser.getUserName);
       this.subscriber = posts.subscribe((res) => {
@@ -47,10 +49,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
       });
     }
 
+    // // This is to test the post array functionality
     // this.postArr = this.dataService.getPosts();
     // if(this.postArr!=null){
     //   this.isEmpty=false;
     // }
+
   }
 
   ngOnDestroy() {
@@ -58,6 +62,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   copy(){
-    this.clipboard.copy(this.wallUrl);
+    this.clipboard.copy(this.profileUrl);
   }
 }
