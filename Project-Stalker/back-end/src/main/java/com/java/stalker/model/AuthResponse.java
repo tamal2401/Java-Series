@@ -1,16 +1,13 @@
 package com.java.stalker.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
 public class AuthResponse {
     public String user;
     public String email;
-    public String token;
 }
