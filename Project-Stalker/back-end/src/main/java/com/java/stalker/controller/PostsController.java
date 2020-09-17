@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class PostsController {
             freshUser.setEmail(signUpUser.getEmail());
             freshUser.setPassword(signUpUser.getPassword());
             freshUser.setLastLoggedInTime(new Date());
-        }else{
+        } else {
             throw new Exception("User Already Exists");
         }
         return new AuthResponse(freshUser.getUserId(), freshUser.getEmail());
@@ -80,5 +81,30 @@ public class PostsController {
         listOfPost.add(post1);
         listOfPost.add(post2);
         return listOfPost;
+    }
+
+    public static void main(String[] args) {
+        List<Integer> space = Arrays.asList(1, 5, 3, 2);
+        int segment = 1;
+
+        int localMaxima = 0;
+        int itr = (space.size() - (segment - 1)) - 1;
+        for (int i = 0; i <= itr; i++) {
+            int counter = segment;
+            int j = i;
+            int localMinima = space.get(j);
+            while (counter != 0) {
+                if (localMinima > space.get(j)) {
+                    localMinima = space.get(j);
+                }
+                counter--;
+                j++;
+            }
+            if (localMaxima < localMinima) {
+                localMaxima = localMinima;
+            }
+        }
+        System.out.println(localMaxima);
+
     }
 }
