@@ -1,0 +1,59 @@
+server:
+  port: 8090
+
+---
+spring:
+  application:
+    name: Multiple-Datasource
+  profiles:
+    active: LOCAL
+
+logging:
+  level:
+    org:
+      springframework: INFO
+
+---
+spring:
+  profiles: LOCAL
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:testDb
+    username: admin
+    password: admin
+  jpa:
+    hibernate.ddl-auto: create
+    generate-ddl: true
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2
+
+app:
+  custom:
+    datasource:
+      driverClassName: org.h2.Driver
+      url: jdbc:h2:mem:customDb
+      username: admin
+      password: admin
+    jpa:
+      hibernate.ddl-auto: create
+      generate-ddl: true
+      show-sql: true
+
+---
+spring:
+  profiles: STAGE
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/registration_portal
+    username: root
+    password: admin
+  jpa:
+    hibernate.ddl-auto: validate
+    generate-ddl: false
+    show-sql: true
+
+---
+
