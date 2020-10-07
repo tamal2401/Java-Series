@@ -1,4 +1,4 @@
-package com.spring.jpa.domain;
+package com.spring.jpa.custom.domain;
 
 import lombok.*;
 
