@@ -1,17 +1,22 @@
 package com.spring.jpa;
 
-import com.spring.jpa.custom.domain.UserProfile;
+import com.spring.jpa.domain.UserProfile;
 import com.spring.jpa.domain.User;
 import com.spring.jpa.repository.UserRepo;
-import com.spring.jpa.custom.repository.UserProfileRepo;
+import com.spring.jpa.repository.UserProfileRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.annotation.PostConstruct;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Configuration
@@ -32,7 +37,7 @@ public class InitializeData {
     }
 
     @PostConstruct
-    public void initialize(){
+    public void initialize() throws SQLException {
         User user1 = new User();
         user1.setUserId(1);
         user1.setEmail("das.tamal00496@gmail.com");
@@ -72,6 +77,19 @@ public class InitializeData {
         template.execute("DROP TABLE customers IF EXISTS");
         template.execute("CREATE TABLE customers(" +
                 "id SERIAL, first_name VARCHAR(255), last_name VARCHAR(255))");
-        template.batchUpdate("INSERT INTO customers(first_name, last_name) VALUES (?,?)", splitUpNames);
+
+        Connection conn = template.getDataSource().getConnection();
+        conn.setAutoCommit(false);
+        try{
+            template.batchUpdate("INSERT INTO customers(first_name, last_name) VALUES (?,?)", splitUpNames);
+            //conn.commit();
+            List<Map<String, Object>> result = template.queryForList("SELECT * FROM CUSTOMERS");
+            System.out.println(result);
+        }catch(DataAccessException e){
+            System.out.println(e.getCause());
+            conn.rollback();
+        }finally {
+            if(conn.isClosed())conn.close();
+        }
     }
 }
