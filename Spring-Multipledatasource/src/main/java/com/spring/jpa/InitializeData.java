@@ -14,82 +14,60 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import javax.annotation.PostConstruct;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
-@Configuration
 public class InitializeData {
+    public static void main(String[] args){
+        int[][] arr = {{1,2,3}, {2,3,4}, {2,4,6}};
 
-    private final UserRepo repo;
+        List<Date> dateList = new ArrayList<>();
 
-    private final UserProfileRepo userProfileRepo;
+        for(int i=0; i<arr.length; i++){
+            dateList.add(new Date(arr[i][0],arr[i][1],arr[i][2]));
+        }
+        Collections.sort(dateList);
 
-    @Autowired
-    @Qualifier("CustomTemplate")
-    private JdbcTemplate template;
-
-    @Autowired
-    public InitializeData(UserRepo repo, UserProfileRepo userProfileRepo) {
-        this.repo = repo;
-        this.userProfileRepo = userProfileRepo;
+        System.out.println(dateList.get(0));
     }
 
-    @PostConstruct
-    public void initialize() throws SQLException {
-        User user1 = new User();
-        user1.setUserId(1);
-        user1.setEmail("das.tamal00496@gmail.com");
-        user1.setFName("Tamal");
-        user1.setLName("Das");
-        user1.setOrgName("Deloitte");
-        user1.setPhnNo("7003192645");
+    // public static int calculateDays(int[] dateElement){
+    //   return int[0]*365+int[1]*30+int[2];
+    // }
+    static class Date implements Comparable<Date>{
+        public int year;
+        public int month;
+        public int day;
 
-        User user2 = new User();
-        user2.setUserId(2);
-        user2.setEmail("onlyjohn98.com");
-        user2.setFName("John");
-        user2.setLName("Paul");
-        user2.setOrgName("TCS");
-        user2.setPhnNo("8910673912");
+        public Date(int year, int month, int day){
+            this.year = year;
+            this.month = month;
+            this.day = day;
+        }
 
-        repo.saveAll(Arrays.asList(user1, user2));
+        public int getYear(){
+            return this.year;
+        }
+        public int getMonth(){
+            return this.month;
+        }
+        public int getDay(){
+            return this.day;
+        }
 
-        UserProfile profile1 = new UserProfile();
-        profile1.setUpId(1);
-        profile1.setCurrentJobTitle("Developer");
-        profile1.setEmailId("abc@Gmail.com");
-        profile1.setIndustry("Retail");
-        profile1.setJobCategoryId(1);
-        profile1.setJobClassId(1);
-        profile1.setJobFunctionId(1);
-        profile1.setPrimarySkillId(1);
-        profile1.setProjectOpted("deloitte");
-        profile1.setRoleId(1);
+        public int getDay(Date d){
+            return d.year*365+d.month*30+d.day;
+        }
 
-        userProfileRepo.save(profile1);
-
-        List<Object[]> splitUpNames = Arrays.asList("John Woo", "Jeff Dean", "Josh Bloch", "Josh Long").stream()
-                .map(name -> name.split(" "))
-                .collect(Collectors.toList());
-        splitUpNames.forEach(name -> System.out.println(String.format("Inserting customer record for %s %s", name[0], name[1])));
-        template.execute("DROP TABLE customers IF EXISTS");
-        template.execute("CREATE TABLE customers(" +
-                "id SERIAL, first_name VARCHAR(255), last_name VARCHAR(255))");
-
-        Connection conn = template.getDataSource().getConnection();
-        conn.setAutoCommit(false);
-        try{
-            template.batchUpdate("INSERT INTO customers(first_name, last_name) VALUES (?,?)", splitUpNames);
-            //conn.commit();
-            List<Map<String, Object>> result = template.queryForList("SELECT * FROM CUSTOMERS");
-            System.out.println(result);
-        }catch(DataAccessException e){
-            System.out.println(e.getCause());
-            conn.rollback();
-        }finally {
-            if(conn.isClosed())conn.close();
+        public int compareTo(Date d){
+            if(getDay(this)>getDay(d)){
+                return 1;
+            }else if(getDay(this)==getDay(d)){
+                return 0;
+            }else{
+                return -1;
+            }
         }
     }
+
 }
