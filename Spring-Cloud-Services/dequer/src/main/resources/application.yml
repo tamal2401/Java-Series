@@ -1,0 +1,9 @@
+server:
+  port: 8083
+
+#spring:
+#  boot:
+#    admin:
+#      url: http://localhost:8093
+#      username: admin
+#      password: admin
