@@ -34,6 +34,18 @@ public class CustomComparator {
             }
             return 0;
         });
+
+        // Type 3
+        Comparator<Student> rollComparator = Comparator.comparing(Student::getRoll, (o1, o2) -> {
+            if (o1 < o2) {
+                return 1;
+            } else if (o1 > o2) {
+                return -1;
+            }
+            return 0;
+        });
+        Collections.sort(studentList, rollComparator);
+        // or studentList.sort(rollComparator);
     }
 
     static class Student {
