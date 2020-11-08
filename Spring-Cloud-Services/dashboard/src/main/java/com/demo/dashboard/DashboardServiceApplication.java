@@ -13,5 +13,4 @@ public class DashboardServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DashboardServiceApplication.class, args);
 	}
-
 }
