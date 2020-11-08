@@ -2,6 +2,7 @@ package com.demo.crud;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,13 +21,13 @@ public class CrudController {
     }
 
     @PostMapping(value = "/api/save/product")
-    public Product saveProduct(@RequestBody Product prod){
+    public Product saveProduct(@RequestBody Product prod) throws DataSaveException {
         try{
             Product product = productDao.saveData(prod);
             return product;
         }catch(Exception e){
             log.error("Error while saving the data :"+e.getMessage());
+            throw new DataSaveException("Error while saving data");
         }
-        return null;
     }
 }
