@@ -10,11 +10,11 @@ package com.demo.crud;
 public class ProductDaoImpl implements ProductDao {
 
     @Autowired
-    private ProductDaoImpl productDao;
+    private ProductRepository productRepository;
 
     @Transactional(value = Transactional.TxType.REQUIRED,
                     rollbackOn = DataAccessException.class)
-    public String saveData(Product data) {
-        return productDao.saveData(data);
+    public Product saveData(Product data) {
+        return productRepository.save(data);
     }
 }
