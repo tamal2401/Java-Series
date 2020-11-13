@@ -1,4 +1,4 @@
-package com.demo.dashboard;
+package com.demo.dashboard.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

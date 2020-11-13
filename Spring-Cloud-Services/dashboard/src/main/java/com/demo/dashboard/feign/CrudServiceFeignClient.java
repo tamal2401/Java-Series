@@ -1,5 +1,6 @@
-package com.demo.dashboard;
+package com.demo.dashboard.feign;
 
+import com.demo.dashboard.domain.Product;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

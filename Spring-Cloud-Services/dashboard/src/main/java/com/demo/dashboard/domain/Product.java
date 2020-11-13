@@ -1,4 +1,4 @@
-package com.demo.dashboard;
+package com.demo.dashboard.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

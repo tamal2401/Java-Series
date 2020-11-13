@@ -1,4 +1,4 @@
-package com.demo.dashboard;
+package com.demo.dashboard.feign;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;

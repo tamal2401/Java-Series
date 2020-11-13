@@ -1,6 +1,7 @@
-package com.demo.dashboard;
+package com.demo.dashboard.controller;
 
-import com.netflix.discovery.converters.Auto;
+import com.demo.dashboard.feign.CrudServiceFeignClient;
+import com.demo.dashboard.domain.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
