@@ -21,13 +21,4 @@ public class User {
     @Column(name = "first_name", nullable = false)
     private String lName;
 
-    @Column(name = "last_name", nullable = false)
-    private String orgName;
-
-    @Column(name = "org_name", nullable = false, unique = true)
-    private String email;
-
-    @Column(name = "phn_no", nullable = false)
-    private String phnNo;
-
 }
