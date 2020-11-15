@@ -39,9 +39,4 @@ public class KafkaConfig {
     public KafkaTemplate<String, String> kafkaTemplate(){
         return new KafkaTemplate<>(producerFactory());
     }
-
-    @Bean
-    public Gson getGson(){
-        return new Gson();
-    }
 }

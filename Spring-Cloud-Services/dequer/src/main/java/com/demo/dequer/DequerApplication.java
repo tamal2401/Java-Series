@@ -1,11 +1,14 @@
 package com.demo.dequer;
 
+import com.google.gson.Gson;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.EnableKafka;
+import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 
@@ -23,6 +26,7 @@ public class DequerApplication {
         SpringApplication.run(DequerApplication.class, args);
     }
 
+    @Bean
     public ConsumerFactory<String, String> getConsumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(
@@ -38,5 +42,17 @@ public class DequerApplication {
                 ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
                 StringDeserializer.class);
         return new DefaultKafkaConsumerFactory<>(props);
+    }
+
+    @Bean
+    private ConcurrentKafkaListenerContainerFactory<String, String> getKafkaListnerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, String> listnerFactory = new ConcurrentKafkaListenerContainerFactory<>();
+        listnerFactory.setConsumerFactory(getConsumerFactory());
+        return listnerFactory;
+    }
+
+    @Bean
+    public Gson getGson(){
+        return new Gson();
     }
 }

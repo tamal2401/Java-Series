@@ -24,10 +24,11 @@ public class EventProducerController {
     @Autowired
     private Gson jsonConverter;
 
-    @PostMapping(value = "/api/publish/{topic}")
-    public void publishMessage(@PathVariable String topic, @RequestBody Product prod) {
+    @PostMapping(value = "/api/publish/alert")
+    public void publishMessage(@RequestBody Product prod) {
         if (!StringUtils.isEmpty(prod)) {
-            ListenableFuture<SendResult<String, String>> futureRes = kafkaTemplate.send(topic, jsonConverter.toJson(prod));
+            ListenableFuture<SendResult<String, String>> futureRes = kafkaTemplate.send("new_product_alert",
+                    jsonConverter.toJson(prod));
             futureRes.addCallback(
                     success -> {
                         log.info("Event prpoduced with Messege : {}", success);
