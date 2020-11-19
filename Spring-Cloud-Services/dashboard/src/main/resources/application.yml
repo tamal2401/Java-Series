@@ -1,6 +1,16 @@
 server:
   port: 8081
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#       exclude:
+  endpoint:
+    health:
+      show-details: ALWAYS
+
 #spring:
 #  boot:
 #    admin:
