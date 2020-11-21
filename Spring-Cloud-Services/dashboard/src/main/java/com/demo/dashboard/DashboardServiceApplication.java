@@ -1,5 +1,6 @@
 package com.demo.dashboard;
 
+import com.demo.dashboard.config.actuator.logging.LoggingEndpoint;
 import com.google.gson.Gson;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,5 +20,10 @@ public class DashboardServiceApplication {
 	@Bean
 	public Gson getGson(){
 		return new Gson();
+	}
+
+	@Bean
+	public LoggingEndpoint getLoggingEndpoint(){
+		return new LoggingEndpoint();
 	}
 }
