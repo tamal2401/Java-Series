@@ -20,6 +20,7 @@
         <module>dashboard</module>
         <module>Spring-Admin</module>
         <module>dequer</module>
+        <module>commons-logging</module>
     </modules>
 
     <properties>
