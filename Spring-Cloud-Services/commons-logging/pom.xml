@@ -9,8 +9,8 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<groupId>com.demo</groupId>
-	<artifactId>commonslogging</artifactId>
-	<name>Coomon-Logging</name>
+	<artifactId>commons-logging</artifactId>
+	<name>Common-Logging</name>
 	<description>Common Logging component for all services</description>
 
 	<properties>
