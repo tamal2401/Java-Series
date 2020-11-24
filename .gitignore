@@ -31,3 +31,6 @@ Project Job Scraper/.mvn/wrapper/maven-wrapper.jar
 Spring-Security/.mvn/wrapper/MavenWrapperDownloader.java
 Spring-Security/.mvn/wrapper/maven-wrapper.properties
 Spring-Security/.mvn/wrapper/maven-wrapper.jar
+Spring-Cloud-Services/commons-logging/.mvn/wrapper/maven-wrapper.properties
+Spring-Cloud-Services/commons-logging/.mvn/wrapper/MavenWrapperDownloader.java
+Spring-Cloud-Services/commons-logging/.mvn/wrapper/maven-wrapper.properties
