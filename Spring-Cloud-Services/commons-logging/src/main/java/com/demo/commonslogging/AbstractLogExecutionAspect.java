@@ -6,16 +6,25 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 @Aspect
 @Component
 public abstract class AbstractLogExecutionAspect {
+
+    private final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static final String CLAZZ = "class";
     private static final String ACTION = "action";
@@ -41,9 +50,14 @@ public abstract class AbstractLogExecutionAspect {
                     MDC.put(DURATION, String.valueOf(duration));
                     MDC.put(ELAPSE_TIME, String.valueOf(duration));
 
+                    LoggingUtil.logTiming("Executing from {}, Executing method {}, Execution time {} ms", clazz, action, duration);
 
+                    MDC.remove(CLAZZ);
+                    MDC.remove(ACTION);
+                    MDC.remove(DURATION);
+                    MDC.remove(ELAPSE_TIME);
 
                 });
-        return  null;
+        return execVal;
     }
 }
