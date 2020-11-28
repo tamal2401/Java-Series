@@ -31,7 +31,7 @@ public class EventProducerController {
                     jsonConverter.toJson(prod));
             futureRes.addCallback(
                     success -> {
-                        log.info("Event prpoduced with Messege : {}", success);
+                        log.info("Event produced with Message : {}", success);
                     },
                     failure -> {
                         log.info("Faliure occured while publishing message : {}", failure);

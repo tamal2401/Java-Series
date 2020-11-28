@@ -1,4 +1,4 @@
-package com.demo.dashboard.controller;
+package com.demo.dashboard.dialogueservice;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
