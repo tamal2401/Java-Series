@@ -14,3 +14,14 @@ kafka:
   server:
     port: 8161
     address: 127.0.0.1
+
+external:
+  service:
+    motivation:
+      api:
+      readtimeout:
+      requesttimeout:
+    insult:
+      api:
+      readtimeout:
+      requesttimeout:
