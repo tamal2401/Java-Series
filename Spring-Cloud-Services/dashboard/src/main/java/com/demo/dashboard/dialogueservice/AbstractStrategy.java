@@ -1,6 +1,8 @@
 package com.demo.dashboard.dialogueservice;
 
+import java.io.IOException;
+
 public interface AbstractStrategy {
 
-    public String generateMessage();
+    Object generateMessage() throws IOException;
 }
