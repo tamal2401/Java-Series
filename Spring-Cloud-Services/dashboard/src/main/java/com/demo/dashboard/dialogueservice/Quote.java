@@ -7,27 +7,18 @@ import java.util.Arrays;
 
 public class Quote {
 
-    @JsonIgnore
     private String dialogue;
-    @JsonIgnore
     private Integer id;
-    @JsonIgnore
     private String[] tags;
-    @JsonIgnore
     private String url;
-    @JsonIgnore
     @JsonProperty(value = "favorites_count")
     private Integer favCount;
-    @JsonIgnore
     @JsonProperty(value = "upvotes_count")
     private Integer upCount;
-    @JsonIgnore
     @JsonProperty(value = "downvotes_count")
     private Integer downCount;
-    @JsonIgnore
     private String author;
     @JsonProperty(value = "author_permalink")
-    @JsonIgnore
     private String authorLink;
     private String body;
 

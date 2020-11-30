@@ -44,13 +44,13 @@ public class MotivationService {
                                     .url(url)
                                     .build();
 
-        MotivationModel model = new MotivationModel();
+         MotivationModel model = new MotivationModel();
         try(Response response = this.client.newCall(request).execute()){
             if(response.isSuccessful()){
                 ResponseBody body = Optional.ofNullable(response.body())
                         .orElseThrow(() -> new IllegalStateException(
                                 String.format("Call successful to %s , but with empty response body", url)));
-               model =  this.mapper.reader().forType(String.class).readValue(body.bytes());
+               model =  this.mapper.reader().forType(MotivationModel.class).readValue(body.bytes());
             }
         }catch(IOException ex){
             log.error("Error occured while calling url {} ", url);

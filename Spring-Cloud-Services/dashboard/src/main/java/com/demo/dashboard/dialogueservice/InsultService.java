@@ -39,8 +39,9 @@ public class InsultService {
 
         HttpUrl.Builder urlbBuilder = HttpUrl.parse(this.prop.getInsult().getApi()).newBuilder();
         String url = urlbBuilder.addQueryParameter("lang", "en")
-                .build()
-                .toString();
+                                .addQueryParameter("type", "json")
+                                .build()
+                                .toString();
 
         Request request = new Request.Builder()
                 .get()

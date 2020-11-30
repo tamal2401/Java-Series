@@ -18,10 +18,10 @@ kafka:
 external:
   service:
     motivation:
-      api:
-      readtimeout:
-      requesttimeout:
+      api: https://favqs.com/api/qotd
+      readtimeout: 500
+      requesttimeout: 500
     insult:
-      api:
-      readtimeout:
-      requesttimeout:
+      api: https://evilinsult.com/generate_insult.php
+      readtimeout: 500
+      requesttimeout: 500
