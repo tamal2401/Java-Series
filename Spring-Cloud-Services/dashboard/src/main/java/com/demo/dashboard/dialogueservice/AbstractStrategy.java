@@ -4,5 +4,5 @@ import java.io.IOException;
 
 public interface AbstractStrategy {
 
-    Object generateMessage() throws IOException;
+    CommonMessageModel generateMessage() throws IOException;
 }

@@ -3,6 +3,7 @@ package com.demo.dashboard.dialogueservice;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netflix.discovery.converters.Auto;
 import okhttp3.*;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +35,14 @@ public class InsultService {
         this.mapper = mapper;
     }
 
-    public InsultModel call() throws IOException {
+    public CommonMessageModel call() throws IOException {
         log.info("Calling Insult Service to get new response");
 
         HttpUrl.Builder urlbBuilder = HttpUrl.parse(this.prop.getInsult().getApi()).newBuilder();
         String url = urlbBuilder.addQueryParameter("lang", "en")
-                                .addQueryParameter("type", "json")
-                                .build()
-                                .toString();
+                .addQueryParameter("type", "json")
+                .build()
+                .toString();
 
         Request request = new Request.Builder()
                 .get()
@@ -60,6 +61,9 @@ public class InsultService {
             log.error("Error occured while calling url {} ", url);
             throw ex;
         }
-        return insultModel;
+
+        CommonMessageModel commonModel = new CommonMessageModel(insultModel.getComment(),
+                LambdaUtils.checkBlankOrNull(insultModel.getCreatedby()) ? "Anonymus" : insultModel.getCreatedby());
+        return commonModel;
     }
 }

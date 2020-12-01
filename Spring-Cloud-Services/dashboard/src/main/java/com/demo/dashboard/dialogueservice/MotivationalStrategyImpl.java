@@ -12,7 +12,7 @@ public class MotivationalStrategyImpl implements AbstractStrategy {
     MotivationService motivationService;
 
     @Override
-    public Object generateMessage() throws IOException {
+    public CommonMessageModel generateMessage() throws IOException {
         return motivationService.call();
     }
 }

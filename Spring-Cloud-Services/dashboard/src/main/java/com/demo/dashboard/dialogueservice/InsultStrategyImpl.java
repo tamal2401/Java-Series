@@ -12,7 +12,7 @@ public class InsultStrategyImpl implements AbstractStrategy {
     InsultService insultService;
 
     @Override
-    public Object generateMessage() throws IOException {
+    public CommonMessageModel generateMessage() throws IOException {
         return insultService.call();
     }
 }

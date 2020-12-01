@@ -2,6 +2,7 @@ package com.demo.dashboard.dialogueservice;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class MotivationService {
         this.mapper = mapper;
     }
 
-    public MotivationModel call() throws IOException {
+    public CommonMessageModel call() throws IOException {
         log.info("Calling Motivational Service to get new response");
 
         HttpUrl.Builder urlbBuilder = HttpUrl.parse(this.prop.getMotivation().getApi()).newBuilder();
@@ -56,6 +57,9 @@ public class MotivationService {
             log.error("Error occured while calling url {} ", url);
             throw ex;
         }
-        return model;
+
+        CommonMessageModel commonModel = new CommonMessageModel(model.getQuote().getBody(),
+                LambdaUtils.checkBlankOrNull(model.getQuote().getAuthor()) ? "Anonymus" : model.getQuote().getAuthor());
+        return commonModel;
     }
 }

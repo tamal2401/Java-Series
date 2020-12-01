@@ -2,5 +2,5 @@ package com.demo.dashboard.dialogueservice;
 
 public interface StrategyBuilder {
 
-    Object execute() throws UnresponsiveServiceException;
+    CommonMessageModel execute() throws UnresponsiveServiceException;
 }

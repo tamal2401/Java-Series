@@ -10,7 +10,7 @@ public class StrategyBuilderImpl implements StrategyBuilder {
         this.strategy = strategy;
     }
 
-    public Object execute() throws UnresponsiveServiceException {
+    public CommonMessageModel execute() throws UnresponsiveServiceException {
         try{
             return this.strategy.generateMessage();
         }catch(IOException ex){
