@@ -35,7 +35,7 @@ public class DialogueController {
         StrategyBuilder insultBuilder = new StrategyBuilderImpl(insult);
         List<CommonMessageModel> newInsultCollection = getCommonMsg(insultBuilder);
         log.info("\n result :: " + newInsultCollection);
-        model.addAttribute("insultObj", newInsultCollection);
+        model.addAttribute("msgObj", newInsultCollection);
         return "index";
     }
 
@@ -44,7 +44,7 @@ public class DialogueController {
         StrategyBuilder quoteBuilder = new StrategyBuilderImpl(motivation);
         List<CommonMessageModel> newQuotesCollection = getCommonMsg(quoteBuilder);
         log.info("\n result :: " + newQuotesCollection);
-        model.addAttribute("quoteObj", newQuotesCollection);
+        model.addAttribute("msgObj", newQuotesCollection);
         return "index";
     }
 

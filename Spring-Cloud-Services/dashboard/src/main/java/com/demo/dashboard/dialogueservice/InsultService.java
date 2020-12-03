@@ -62,7 +62,7 @@ public class InsultService {
             throw ex;
         }
 
-        CommonMessageModel commonModel = new CommonMessageModel(insultModel.getComment(),
+        CommonMessageModel commonModel = new CommonMessageModel(insultModel.getInsult(),
                 LambdaUtils.checkBlankOrNull(insultModel.getCreatedby()) ? "Anonymus" : insultModel.getCreatedby());
         return commonModel;
     }
