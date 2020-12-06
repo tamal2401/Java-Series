@@ -50,7 +50,7 @@ public class DialogueController {
 
     private List<CommonMessageModel> getCommonMsg(StrategyBuilder builder) {
 
-        List<CommonMessageModel> msgList = IntStream.range(1,6).parallel().mapToObj(each -> {
+        List<CommonMessageModel> msgList = IntStream.range(1,7).mapToObj(each -> {
             CommonMessageModel msgType = null;
             try {
                 msgType = builder.execute();
