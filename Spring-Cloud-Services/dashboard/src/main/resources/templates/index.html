@@ -11,21 +11,27 @@
           integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">Have Some Dialogue</a>
-    <a class="navbar-brand" th:href="@{/get/insult}">Insult</a>
-    <a class="navbar-brand" th:href="@{/get/insult}">Quotes</a>
-</nav>
+
 
 <div class="container">
-    <tr th:each="msg: ${msgObj}">
-        <div class="card border-primary mb-3" style="max-width: 18rem;">
-            <div class="card-header">{{ msg.createdby }}</div>
-            <div class="card-body text-primary">
-                <p class="card-text">{{ msg.message }}</p>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">Have Some Dialogue</a>
+        <a class="navbar-brand" th:href="@{/get/insult}">Insult</a>
+        <a class="navbar-brand" th:href="@{/get/insult}">Quotes</a>
+    </nav>
+    <br>
+    <div class="row">
+        <tr th:each="msg: ${msgObj}">
+            <div class="col-md-3">
+                <div class="card border-primary mb-3" style="max-width: 18rem;">
+                    <div class="card-header">{{ msg.createdBy }}</div>
+                    <div class="card-body text-primary">
+                        <p class="card-text">{{ msg.message }}</p>
+                    </div>
+                </div>
             </div>
-        </div>
-    </tr>
+        </tr>
+    </div>
 </div>
 </body>
 </html>
