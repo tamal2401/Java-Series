@@ -21,6 +21,7 @@
         <module>Spring-Admin</module>
         <module>dequer</module>
         <module>commons-logging</module>
+        <module>proxy</module>
     </modules>
 
     <properties>
