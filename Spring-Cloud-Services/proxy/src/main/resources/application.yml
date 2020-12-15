@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: proxy-service
+
+server:
+  port: 8080
+
+zuul:
+  routes:
+    dashboard:
+      path: /product/**
+      serviceId: dashboard-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true

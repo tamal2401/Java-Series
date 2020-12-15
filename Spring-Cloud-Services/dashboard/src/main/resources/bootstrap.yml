@@ -25,3 +25,8 @@ external:
       api: https://evilinsult.com/generate_insult.php
       readtimeout: 500
       requesttimeout: 500
+
+# To disable Hystrix in Feign
+feign:
+  hystrix:
+    enabled: true

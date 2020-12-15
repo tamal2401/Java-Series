@@ -2,6 +2,7 @@ package com.demo.dashboard;
 
 import com.demo.dashboard.config.actuator.heartbeat.HeartBeatEndpoint;
 import com.demo.dashboard.config.actuator.logging.LoggingEndpoint;
+import com.demo.dashboard.feign.HystrixFallbackConfig;
 import com.google.gson.Gson;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,5 +32,10 @@ public class DashboardServiceApplication {
     @Bean
     public HeartBeatEndpoint getHeartBeatEndpoint() {
         return new HeartBeatEndpoint();
+    }
+
+    @Bean
+    public HystrixFallbackConfig getFallback(){
+        return new HystrixFallbackConfig();
     }
 }

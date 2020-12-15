@@ -33,6 +33,7 @@ public class ViewController {
 
     @GetMapping(value = "/api/product/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Product> getAllProduct() {
+        System.out.println("in dashboard service");
         return crudServiceFeignClient.allProducts();
     }
 }
