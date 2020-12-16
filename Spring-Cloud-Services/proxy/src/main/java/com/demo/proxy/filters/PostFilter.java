@@ -1,11 +1,14 @@
 package com.demo.proxy.filters;
 
 import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletResponse;
 import java.lang.invoke.MethodHandles;
+import java.util.Optional;
 
 public class PostFilter extends ZuulFilter {
 
@@ -29,6 +32,8 @@ public class PostFilter extends ZuulFilter {
     @Override
     public Object run() throws ZuulException {
         log.info("In post filter");
+        HttpServletResponse response = RequestContext.getCurrentContext().getResponse();
+        response.addHeader("custom-header", "test");
         return null;
     }
 }
