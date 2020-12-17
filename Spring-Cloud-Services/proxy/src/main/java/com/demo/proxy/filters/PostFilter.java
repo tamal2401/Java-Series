@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletResponse;
 import java.lang.invoke.MethodHandles;
-import java.util.Optional;
 
 public class PostFilter extends ZuulFilter {
 

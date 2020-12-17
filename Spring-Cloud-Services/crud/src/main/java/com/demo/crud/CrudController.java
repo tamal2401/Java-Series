@@ -43,6 +43,6 @@ public class CrudController {
 
     @GetMapping(value = "/api/product/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Product> allProducts() {
-        return null;
+        return productDao.getAll();
     }
 }
