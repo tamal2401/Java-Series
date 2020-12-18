@@ -19,7 +19,7 @@ public class QueueListener {
     @KafkaListener(topics = "new_product_alert")
     public void queueListener(String message) {
         if (null != message && !StringUtils.isBlank(message)) {
-            Product alertProd = gson.fromJson(message, Product.class);
+            AlertProductInfo alertProd = gson.fromJson(message, AlertProductInfo.class);
             log.info("New Product details added :: {}", alertProd.toString());
         }
     }

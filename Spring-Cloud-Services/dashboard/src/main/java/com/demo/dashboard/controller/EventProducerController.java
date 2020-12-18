@@ -1,6 +1,6 @@
 package com.demo.dashboard.controller;
 
-import com.demo.dashboard.domain.Product;
+import com.demo.dashboard.domain.AlertProductInfo;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,7 @@ public class EventProducerController {
     private Gson jsonConverter;
 
     @PostMapping(value = "/api/publish/alert")
-    public void publishMessage(@RequestBody Product prod) {
+    public void publishMessage(@RequestBody AlertProductInfo prod) {
         if (!StringUtils.isEmpty(prod)) {
             ListenableFuture<SendResult<String, String>> futureRes = kafkaTemplate.send("new_product_alert",
                     jsonConverter.toJson(prod));

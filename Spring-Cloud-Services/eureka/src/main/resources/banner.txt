@@ -1,0 +1,11 @@
+${AnsiColor.BLUE} __________  ______    __      __ __           .__
+${AnsiColor.BLUE} \________/ |   _  \  /  \    /  \  | __  _____|  |__   ____ ______
+${AnsiColor.BLUE}    |  |    |  | \  | \   \/\/   /  |/ / /  ___/  |  \ /  _ \\____ \
+${AnsiColor.BLUE}    |  |    |  |  | |  \        /|    <  \___ \|   Y  (  <_> )  |_> >
+${AnsiColor.BLUE}    |  |    |  |_/  |   \__/\  / |__|_ \/____  >___|  /\____/|   __/
+${AnsiColor.BLUE}     \/     |______/         \/       \/     \/     \/       |__|
+
+${AnsiColor.CYAN} Eureka Naming server
+
+${AnsiColor.GREEN} The application will start at ${AnsiColor.RED}http://localhost:8761${AnsiColor.BLACK}
+ 

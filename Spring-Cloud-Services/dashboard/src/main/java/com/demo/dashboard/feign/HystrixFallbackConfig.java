@@ -1,9 +1,8 @@
 package com.demo.dashboard.feign;
 
-import com.demo.dashboard.domain.Product;
+import com.demo.dashboard.domain.AlertProductInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.lang.invoke.MethodHandles;
 import java.util.Collections;
@@ -14,7 +13,7 @@ public class HystrixFallbackConfig implements CrudServiceFeignClient {
     private final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @Override
-    public Product saveProduct(Product prod) {
+    public AlertProductInfo saveProduct(AlertProductInfo prod) {
         log.warn("FeignClient call to save product failed");
         return null;
     }
@@ -25,12 +24,12 @@ public class HystrixFallbackConfig implements CrudServiceFeignClient {
     }
 
     @Override
-    public void updateProduct(Product prod) {
+    public void updateProduct(AlertProductInfo prod) {
         log.warn("FeignClient call to update product failed");
     }
 
     @Override
-    public List<Product> allProducts() {
+    public List<AlertProductInfo> allProducts() {
         log.warn("FeignClient call to get all product failed");
         return Collections.emptyList();
     }
