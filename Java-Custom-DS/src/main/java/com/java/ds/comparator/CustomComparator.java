@@ -45,6 +45,7 @@ public class CustomComparator {
             return 0;
         });
         Collections.sort(studentList, rollComparator);
+        System.out.println(studentList);
         // or studentList.sort(rollComparator);
     }
 
