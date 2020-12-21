@@ -53,7 +53,7 @@ public class CustomThreadPool {
 				try {
 					workerQueue.take().run();
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					System.out.println(e.getMessage());
 				}
 			}
 		}
@@ -72,6 +72,6 @@ public class CustomThreadPool {
 			});
 		});
 		pool.shutDown();
-		Thread.sleep(5000);
+		//Thread.sleep(5000);
 	}
 }
