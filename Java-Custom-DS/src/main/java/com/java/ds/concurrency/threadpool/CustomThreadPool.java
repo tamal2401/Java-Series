@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
 public class CustomThreadPool {
 
 	private final BlockingQueue<Runnable> workerQueue;
-	private Thread[] workerThread;
+	private final Thread[] workerThread;
 	private boolean isStopped = false;
 
 	public CustomThreadPool(int numOfThreads) {
@@ -33,6 +33,9 @@ public class CustomThreadPool {
 
 	public synchronized void execute(Runnable task) {
 		if(!isStopped) this.workerQueue.add(task);
+		
+		 throw new IllegalStateException("ThreadPool is stopped");
+
 	}
 
 	public synchronized void shutDown() {
@@ -60,18 +63,19 @@ public class CustomThreadPool {
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-		CustomThreadPool pool = new CustomThreadPool(8);
+		CustomThreadPool pool = new CustomThreadPool(3);
 		IntStream.range(0, 5).forEach(digit -> {
 			pool.execute(()-> {
-				System.out.println("Current running thread is :: "+Thread.currentThread().getName());
-				//				try {
-				//					Thread.sleep(2000);
-				//				} catch (InterruptedException e) {
-				//					e.printStackTrace();
-				//				}
+				try {
+					Thread.currentThread();
+					Thread.sleep(2000);
+					System.out.println("Current running thread is :: "+Thread.currentThread().getName());
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			});
 		});
+		Thread.sleep(5000);
 		pool.shutDown();
-		//Thread.sleep(5000);
 	}
 }
