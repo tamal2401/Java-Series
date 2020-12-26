@@ -78,7 +78,6 @@ public class ViewControllerTest {
                 .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").value("Data saved successfully"));
-        //.andDo(print());
     }
 
     public static String asJsonString(final Object obj) {
