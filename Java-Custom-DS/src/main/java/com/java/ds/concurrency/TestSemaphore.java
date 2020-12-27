@@ -4,7 +4,7 @@ import java.util.concurrent.Semaphore;
 
 public class TestSemaphore {
 
-	Semaphore gateKeeper = new Semaphore(1);
+	Semaphore gateKeeper = new Semaphore(2);
 
 	public static void main(String[] args) {
 		TestSemaphore test = new TestSemaphore();
