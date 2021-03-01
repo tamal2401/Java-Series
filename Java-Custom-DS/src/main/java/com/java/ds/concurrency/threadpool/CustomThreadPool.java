@@ -67,7 +67,6 @@ public class CustomThreadPool {
 		IntStream.range(0, 5).forEach(digit -> {
 			pool.execute(()-> {
 				try {
-					Thread.currentThread();
 					Thread.sleep(2000);
 					System.out.println("Current running thread is :: "+Thread.currentThread().getName());
 				} catch (InterruptedException e) {
