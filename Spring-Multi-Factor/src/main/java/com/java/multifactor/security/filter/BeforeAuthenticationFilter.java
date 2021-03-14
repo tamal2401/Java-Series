@@ -57,7 +57,7 @@ public class BeforeAuthenticationFilter extends UsernamePasswordAuthenticationFi
         Customer customer = customerService.getCustomerByEMail(uName);
 
         if(null!=customer){
-            if (customer.isOTPRequired()) {
+            if (!customer.isOTPRequired()) {
                 return super.attemptAuthentication(request, response);
             }
 
