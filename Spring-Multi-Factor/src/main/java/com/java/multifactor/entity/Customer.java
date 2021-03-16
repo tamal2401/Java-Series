@@ -39,18 +39,16 @@ public class Customer {
     }
 
     public boolean isOTPRequired() {
-        if (this.getOneTimePassword() == null) {
-            return false;
+        if(null!=oneTimePassword){
+            long currentTimeInMillis = System.currentTimeMillis();
+            long otpRequestedTimeInMillis = this.otpRequestedTime.getTime();
+
+            if (otpRequestedTimeInMillis + OTP_VALID_DURATION < currentTimeInMillis) {
+                // OTP expires
+                this.setOneTimePassword(null);
+                return false;
+            }
         }
-
-        long currentTimeInMillis = System.currentTimeMillis();
-        long otpRequestedTimeInMillis = this.otpRequestedTime.getTime();
-
-        if (otpRequestedTimeInMillis + OTP_VALID_DURATION < currentTimeInMillis) {
-            // OTP expires
-            return false;
-        }
-
         return true;
     }
 

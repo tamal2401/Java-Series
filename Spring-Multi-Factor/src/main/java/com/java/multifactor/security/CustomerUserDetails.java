@@ -26,7 +26,6 @@ public class CustomerUserDetails implements UserDetails {
         if (customer.isOTPRequired()) {
             return customer.getOneTimePassword();
         }
-
         return customer.getPassword();
     }
 

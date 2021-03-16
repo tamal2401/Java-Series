@@ -1,6 +1,6 @@
 package com.java.multifactor.entity;
 
-public class User {
+public class RegRequestedUser {
 
     private String email;
 
@@ -12,7 +12,7 @@ public class User {
 
     private boolean enabled;
 
-    public User() {
+    public RegRequestedUser() {
     }
 
     public String getEmail() {
