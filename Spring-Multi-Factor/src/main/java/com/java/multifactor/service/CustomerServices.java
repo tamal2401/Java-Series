@@ -1,14 +1,17 @@
 package com.java.multifactor.service;
 
 import com.java.multifactor.entity.Customer;
-import com.java.multifactor.repository.CountryRepository;
 import com.java.multifactor.repository.CustomerRepository;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -24,10 +27,7 @@ public class CustomerServices {
     CustomerRepository customerRepo;
 
     @Autowired
-    CountryRepository countryRepo;
-
-    @Autowired
-    JavaMailSender mailSender;
+    MailSender mailSender;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -36,9 +36,9 @@ public class CustomerServices {
     public void generateOneTimePassword(Customer customer)
             throws UnsupportedEncodingException, MessagingException {
         String OTP = RandomString.make(8);
-        String encodedOTP = passwordEncoder.encode(OTP);
+        //String encodedOTP = passwordEncoder.encode(OTP);
 
-        customer.setOneTimePassword(encodedOTP);
+        customer.setOneTimePassword(OTP);
         customer.setOtpRequestedTime(new Date());
 
         customerRepo.save(customer);
@@ -48,11 +48,10 @@ public class CustomerServices {
 
     public void sendOTPEmail(Customer customer, String OTP)
             throws UnsupportedEncodingException, MessagingException {
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
+        SimpleMailMessage message = new SimpleMailMessage();
 
-        helper.setFrom("contact@shopme.com", "Shopme Support");
-        helper.setTo(customer.getEmail());
+        message.setFrom("contact@shopme.com");
+        message.setTo(customer.getEmail());
 
         String subject = "Here's your One Time Password (OTP) - Expire in 5 minutes!";
 
@@ -63,11 +62,17 @@ public class CustomerServices {
                 + "<br>"
                 + "<p>Note: this OTP is set to expire in 5 minutes.</p>";
 
-        helper.setSubject(subject);
+        message.setSubject(subject);
 
-        helper.setText(content, true);
+        message.setText(content);
 
-        mailSender.send(message);
+        try {
+            mailSender.send(message);
+        } catch (Exception e) {
+            System.out.println("Error occured while sending mail to: " + customer.getEmail());
+            System.out.println("Error ; " + e.getMessage());
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Mail service not responding", e);
+        }
     }
 
     public void clearOTP(Customer customer) {

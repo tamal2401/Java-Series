@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 @RestController
 public class HomeController {
@@ -35,7 +38,17 @@ public class HomeController {
         return "2 step authentication worked";
     }
 
-    @PostMapping(value = "/api/user/register", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping(value = "/api/signup/new")
+    public String registrationPage(Model model) {
+        return "registration";
+    }
+
+    @PostMapping(value = "/api/signup/save", produces = MediaType.APPLICATION_JSON_VALUE)
     public String register(@RequestBody RegRequestedUser regRequestedUser) {
         if (null != regRequestedUser) {
             Customer cust = new Customer();
@@ -53,21 +66,18 @@ public class HomeController {
         return "failure";
     }
 
-    @GetMapping(value = "/api/user/new")
-    public String registrationPage(Model model) {
-        return "registration";
-    }
 
-    @PostMapping(value = "/api/user/login", produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @PostMapping(value = "/api/login/twofa", produces = MediaType.APPLICATION_JSON_VALUE)
     public String validateLogin(@RequestBody LogginUser loginUser, Model model) {
         Customer customer = customerRepository.findCustomerByEmail(loginUser.getUserName());
 
-        PostLoginUser regRequestedUser = new PostLoginUser(customer.getEmail(), customer.isEnabled());
-        regRequestedUser.setfName(customer.getfName());
-        regRequestedUser.setlName(customer.getlName());
-        regRequestedUser.setLoggedInTime(null);
+        PostLoginUser postLoginUser = new PostLoginUser(customer.getEmail(), customer.isEnabled());
+        postLoginUser.setfName(customer.getfName());
+        postLoginUser.setlName(customer.getlName());
+        postLoginUser.setLoggedInTime(null);
 
-        model.addAttribute("loggedInUser", regRequestedUser);
+        model.addAttribute("loggedInUser", postLoginUser);
         if (is2fcAuthRequired(customer)) {
             try {
                 customerService.generateOneTimePassword(customer);
@@ -76,13 +86,12 @@ public class HomeController {
                 throw new AuthenticationServiceException(
                         "Error while sending OTP email.");
             }
-            return "2faPage";
         }
-        return "home";
+        return "2faPage";
     }
 
-    @PostMapping(value = "/api/user/2favalidation", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String validate2fa(@RequestBody PostLoginUser loggedInUser, Model model) {
+    @PostMapping(value = "/api/login/validate", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String validate2fa(@RequestBody PostLoginUser loggedInUser, Model model, HttpServletRequest request) {
         if(null==loggedInUser && StringUtils.isBlank(loggedInUser.getOtp())){
             return "login";
         }
@@ -95,22 +104,32 @@ public class HomeController {
 
         if(!verify2fa(otp, loggedInCust)){
             model.addAttribute("warning-msg", "OTP was expired");
-            return "2faPage";
+            return "login";
         }
+
+        generateAuthToken(request);
+
         return "home";
     }
 
+    private void generateAuthToken(HttpServletRequest request) {
+        String token = UUID.randomUUID().toString();
+        request.setAttribute("authToken", token);
+    }
+
     private boolean verify2fa(String otp, Customer loggedInCust) {
-        boolean isEqueal = StringUtils.compare(otp, loggedInCust.getOneTimePassword()) == 1;
-        if(isEqueal){
-            return loggedInCust.isOTPRequired();
+        boolean isEqueal = StringUtils.compare(otp, loggedInCust.getOneTimePassword()) == 0;
+        if(isEqueal && loggedInCust.isOTPRequired()){
+            return true;
         }
+        customerService.clearOTP(loggedInCust);
         return false;
     }
 
     private boolean is2fcAuthRequired(Customer loginUser) {
-        if (null != loginUser) {
-            return loginUser.isOTPRequired();
+        if (null != loginUser && !loginUser.isOTPRequired()) {
+            customerService.clearOTP(loginUser);
+            return false;
         }
         return true;
     }

@@ -1,11 +1,9 @@
 package com.java.multifactor.entity;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public class Customer {
 
     private static final long OTP_VALID_DURATION = 5 * 60 * 1000;   // 5 minutes
@@ -45,7 +43,6 @@ public class Customer {
 
             if (otpRequestedTimeInMillis + OTP_VALID_DURATION < currentTimeInMillis) {
                 // OTP expires
-                this.setOneTimePassword(null);
                 return false;
             }
         }
