@@ -4,22 +4,20 @@ spring:
 ---
 spring:
   application:
-    name: Fallback-Service
+    name: Eureka-Server
 
 server:
-  port: 8060
+  port: 8761
 
 ---
 spring:
   profiles: local
 
 eureka:
-  instance:
-    preerIpAddress: true
+  server:
+    enableSelfPreservation: false
   client:
-    service-url:
-      defaultZone: http://admin:admin@localhost:8761/eureka
-    register-with-eureka: true
-    fetch-registry: true
+    register-with-eureka: false
+    fetch-registry: false
 
 

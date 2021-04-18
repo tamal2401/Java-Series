@@ -4,25 +4,10 @@ spring:
 ---
 spring:
   application:
-    name: Zuul-Proxy
+    name: Fallback-Service
 
 server:
-  port: 8080
-
-zuul:
-  routes:
-    book:
-      path: /**
-      serviceId: book-service
-
-book-service:
-  ribbon:
-    connectTimeout: 3000
-    ReadTimeout: 12000
-
-ribbon:
-  eureka:
-    enabled: true
+  port: 8060
 
 ---
 spring:
@@ -36,3 +21,5 @@ eureka:
       defaultZone: http://admin:admin@localhost:8761/eureka
     register-with-eureka: true
     fetch-registry: true
+
+
