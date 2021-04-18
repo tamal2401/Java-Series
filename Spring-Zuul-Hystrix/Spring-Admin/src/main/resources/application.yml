@@ -1,0 +1,23 @@
+spring:
+  profiles:
+    active: local
+---
+spring:
+  application:
+    name: spring-admin
+
+server:
+  port: 8070
+
+---
+spring:
+  profiles: local
+
+eureka:
+  instance:
+    preerIpAddress: true
+  client:
+    service-url:
+      defaultZone: http://admin:admin@localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true

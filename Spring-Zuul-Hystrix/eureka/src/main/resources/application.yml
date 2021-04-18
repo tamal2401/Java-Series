@@ -1,0 +1,25 @@
+spring:
+  profiles:
+    active: local
+---
+spring:
+  application:
+    name: Fallback-Service
+
+server:
+  port: 8060
+
+---
+spring:
+  profiles: local
+
+eureka:
+  instance:
+    preerIpAddress: true
+  client:
+    service-url:
+      defaultZone: http://admin:admin@localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+
+
