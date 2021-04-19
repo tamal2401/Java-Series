@@ -21,7 +21,7 @@ public class ZuulApplication {
 
 	@Bean
 	@LoadBalanced
-	private RestTemplate template(){
+	public RestTemplate template(){
 		return new RestTemplate();
 	}
 }
