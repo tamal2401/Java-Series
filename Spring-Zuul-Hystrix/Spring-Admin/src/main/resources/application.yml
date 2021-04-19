@@ -12,6 +12,12 @@ server:
 ---
 spring:
   profiles: local
+  boot:
+    admin:
+      client:
+        url: http://localhost:8090
+        username: admin
+        password: admin
 
 eureka:
   instance:

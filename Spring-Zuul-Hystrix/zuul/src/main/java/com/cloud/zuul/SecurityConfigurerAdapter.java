@@ -1,4 +1,4 @@
-package com.cloud.Fallback;
+package com.cloud.zuul;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @EnableWebSecurity
-public class SecurityCOnfigurerAdapter extends WebSecurityConfigurerAdapter {
+public class SecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
