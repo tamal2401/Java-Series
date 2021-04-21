@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: local, gatekeeper
 ---
 spring:
   application:
@@ -17,8 +17,10 @@ eureka:
   server:
     enableSelfPreservation: false
   client:
-    register-with-eureka: false
-    fetch-registry: false
+    service-url:
+      defaultZone: http://admin:admin@localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
 
 ---
 spring:
@@ -31,4 +33,18 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
 
+---
+spring:
+  profiles: gatekeeper
 
+management:
+  security:
+    enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        exclude: 'env, beans, configprops, threaddump, heapdump'
+  endpoint:
+    health:
+      show-details: always

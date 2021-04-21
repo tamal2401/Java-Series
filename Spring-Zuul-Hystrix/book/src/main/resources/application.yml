@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: local, gatekeeper
 ---
 spring:
   application:
@@ -47,3 +47,19 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     preerIpAddress: true
+
+---
+spring:
+  profiles: gatekeeper
+
+management:
+  security:
+    enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        exclude: 'env, beans, configprops, threaddump, heapdump'
+  endpoint:
+    health:
+      show-details: always
