@@ -7,20 +7,25 @@ spring:
     name: Zuul-Proxy
 
 server:
-  port: 8080
+  port: ${vcap.application.port:8080}
 
 zuul:
   routes:
     book:
-      path: /**
+      path: /book/**
       serviceId: book-service
 
-book-service:
-  ribbon:
-    connectTimeout: 3000
-    ReadTimeout: 12000
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMiliseconds: 11000
 
 ribbon:
+  connectTimeout: 3000
+  ReadTimeout: 6000
   eureka:
     enabled: true
 
@@ -36,3 +41,20 @@ eureka:
       defaultZone: http://admin:admin@localhost:8761/eureka
     register-with-eureka: true
     fetch-registry: true
+
+---
+spring:
+  profiles: cloud
+
+eureka:
+  instance:
+    metadataMaap:
+      instanceId: ${vcap.application.uris[0]}:${server.port}
+    hostname: ${vcap.application.uris[0]}
+    nonSecurePort: 80
+  client:
+    service-url:
+      defaultZone: ${vcap.services.eureka.credentials.url}/eureka
+    register-with-eureka: true
+    fetch-registry: true
+    preerIpAddress: true

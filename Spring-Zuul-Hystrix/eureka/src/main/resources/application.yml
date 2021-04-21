@@ -7,11 +7,22 @@ spring:
     name: Eureka-Server
 
 server:
-  port: 8761
+  port: ${vcap.application.port:8761}
 
 ---
 spring:
   profiles: local
+
+eureka:
+  server:
+    enableSelfPreservation: false
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+---
+spring:
+  profiles: cloud
 
 eureka:
   server:

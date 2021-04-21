@@ -7,7 +7,7 @@ spring:
     name: Fallback-Service
 
 server:
-  port: 8060
+  port: ${vcap.application.port:8060}
 
 ---
 spring:
@@ -21,5 +21,22 @@ eureka:
       defaultZone: http://admin:admin@localhost:8761/eureka
     register-with-eureka: true
     fetch-registry: true
+
+---
+spring:
+  profiles: cloud
+
+eureka:
+  instance:
+    metadataMaap:
+      instanceId: ${vcap.application.uris[0]}:${server.port}
+    hostname: ${vcap.application.uris[0]}
+    nonSecurePort: 80
+  client:
+    service-url:
+      defaultZone: ${vcap.services.eureka.credentials.url}/eureka
+    register-with-eureka: true
+    fetch-registry: true
+    preerIpAddress: true
 
 

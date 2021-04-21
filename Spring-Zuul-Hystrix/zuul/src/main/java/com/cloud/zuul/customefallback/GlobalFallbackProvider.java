@@ -2,17 +2,13 @@ package com.cloud.zuul.customefallback;
 
 import com.cloud.zuul.client.FallbackServiceImpl;
 import com.cloud.zuul.model.FallbackModel;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.netflix.discovery.converters.Auto;
 import com.netflix.hystrix.exception.HystrixTimeoutException;
-import com.netflix.ribbon.proxy.annotation.Http;
 import com.netflix.zuul.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.route.FallbackProvider;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
@@ -40,7 +36,7 @@ public class GlobalFallbackProvider implements FallbackProvider {
         model.setFailureMessage(cause.getMessage());
         model.setRequestType(currentReq.getMethod());
 
-        String reqbody = null;
+        String reqbody;
         try {
             reqbody = extractRequestBody(currentReq);
             model.setRequestBody(reqbody);
@@ -61,7 +57,7 @@ public class GlobalFallbackProvider implements FallbackProvider {
         String fallbackRes = "";
         try {
             fallbackRes = fallbackService.call(model);
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return fallbackRes;

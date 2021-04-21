@@ -10,5 +10,5 @@ public class FallbackModel {
     private String serviceName;
     private String failureMessage;
     private String requestType;
-    private Object requestBody;
+    private String requestBody;
 }

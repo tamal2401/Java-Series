@@ -7,17 +7,11 @@ spring:
     name: Book-Service
 
 server:
-  port: 8090
+  port: ${vcap.application.port:8090}
 
 ---
 spring:
   profiles: local
-  boot:
-    admin:
-      client:
-        url: http://localhost:8090
-        username: admin
-        password: admin
 
 management:
   endpoints:
@@ -37,3 +31,19 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
 
+---
+spring:
+  profiles: cloud
+
+eureka:
+  instance:
+    metadataMaap:
+      instanceId: ${vcap.application.uris[0]}:${server.port}
+    hostname: ${vcap.application.uris[0]}
+    nonSecurePort: 80
+  client:
+    service-url:
+      defaultZone: ${vcap.services.eureka.credentials.url}/eureka
+    register-with-eureka: true
+    fetch-registry: true
+    preerIpAddress: true
