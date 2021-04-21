@@ -49,7 +49,7 @@ public class GlobalFallbackProvider implements FallbackProvider {
         if(cause instanceof HystrixTimeoutException){
             return new GatewayClientResponse(HttpStatus.GATEWAY_TIMEOUT, fallBackRes);
         }else{
-            return new GatewayClientResponse(HttpStatus.INTERNAL_SERVER_ERROR, fallBackRes);
+            return new GatewayClientResponse(HttpStatus.SERVICE_UNAVAILABLE, fallBackRes);
         }
     }
 

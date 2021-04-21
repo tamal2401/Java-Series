@@ -19,28 +19,25 @@ public class MainController {
         allBooks.add(new Book(4, "SOjarur Kata", "Saradindu Bandopadhya", 780.90, "Detective"));
     }
 
-    @PutMapping("/book/add")
+    @PostMapping("/api/add")
     public void addBook(@RequestBody Book book){
-        this.allBooks.add(book);
+        allBooks.add(book);
     }
 
-    @GetMapping("/book/get/all")
+    @GetMapping("/api/get/all")
     public List<Book> getAllBooks(){
-        return this.allBooks;
+        return allBooks;
     }
 
-    @DeleteMapping("/book/delete/{bookName}")
+    @DeleteMapping("/api/delete/{bookName}")
     public void deleteBook(@PathVariable("bookName") String bookName){
-        Iterator<Book> itr = this.allBooks.iterator();
 
-        while(itr.hasNext()){
-            if(itr.next().getBookName().contentEquals(bookName.trim())) itr.remove();
-        }
+        allBooks.removeIf(book -> book.getBookName().contentEquals(bookName.trim()));
     }
 
-    @GetMapping("/book/get")
+    @GetMapping("/api/get")
     public Book getBookById(@RequestParam("id") long bookId){
-        Iterator<Book> itr = this.allBooks.iterator();
+        Iterator<Book> itr = allBooks.iterator();
         while(itr.hasNext()){
             if(bookId == itr.next().getId()) {
                 return itr.next();
