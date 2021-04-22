@@ -27,7 +27,7 @@ eureka:
     preerIpAddress: true
   client:
     service-url:
-      defaultZone: http://admin:admin@localhost:8761/eureka
+      defaultZone: http://localhost:8761/eureka
     register-with-eureka: true
     fetch-registry: true
 
@@ -62,4 +62,4 @@ management:
         exclude: 'env, beans, configprops, threaddump, heapdump'
   endpoint:
     health:
-      show-details: always
+      show-details: WHEN_AUTHORIZED
