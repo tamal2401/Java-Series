@@ -18,10 +18,8 @@
 
     <modules>
         <module>eureka</module>
-        <module>fallback</module>
         <module>book</module>
         <module>Spring-Admin</module>
-        <module>zuul</module>
     </modules>
 
     <properties>
