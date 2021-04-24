@@ -1,11 +1,17 @@
 package com.cloud.book;
 
 import com.netflix.appinfo.ApplicationInfoManager;
+import com.netflix.discovery.DiscoveryClient;
+import com.sun.jersey.api.client.ClientHandlerException;
+import com.sun.jersey.api.client.ClientRequest;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.filter.ClientFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
@@ -23,12 +29,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.PostConstruct;
+import javax.ws.rs.core.MultivaluedMap;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.List;
+import java.util.*;
 
 @Configuration
+@PropertySource("classpath: auth.properties")
 public class SecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
     @Value("${mesh.security.auth.username}")
@@ -86,6 +93,27 @@ public class SecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
         template.setInterceptors(interceptors);
         return template;
     }
+
+    /**
+     * To set current service authdetails in discovery server for other services to read for management endpoints
+     */
+    @PostConstruct
+    public void setMetadata(){
+        Map<String, String> authMap = new HashMap<>();
+        authMap.put("user.name", this.userName);
+        authMap.put("user.password", this.clientPwd);
+        aim.getInfo().getMetadata().putAll(authMap);
+    }
+
+    /**
+     * To set Basic Auth header in the outgoing request to eureka server from this service to register itself
+     * Credentials are auth metadata for eureka server
+     */
+    public DiscoveryClient.DiscoveryClientOptionalArgs setDiscoverHeaderArgs(){
+        DiscoveryClient.DiscoveryClientOptionalArgs discoveryClientOptionalArgs = new DiscoveryClient.DiscoveryClientOptionalArgs();
+        discoveryClientOptionalArgs.setAdditionalFilters(Collections.singletonList(new IpClientFilter(this.userName, this.clientPwd)));
+        return discoveryClientOptionalArgs;
+    }
 }
 
 class BasicInterceptor implements ClientHttpRequestInterceptor{
@@ -105,6 +133,25 @@ class BasicInterceptor implements ClientHttpRequestInterceptor{
         headers.add("Authorization", "Basic "+new String(Base64.getEncoder()
                 .encode((this.userName+":"+new String(Base64.getDecoder().decode(this.pwd))).getBytes())));
         return execution.execute(request, body);
+    }
+}
+
+class IpClientFilter extends ClientFilter{
+
+    private String userName;
+    private String pwd;
+
+    public IpClientFilter(String userName, String pwd) {
+        this.userName = userName;
+        this.pwd = pwd;
+    }
+
+    @Override
+    public ClientResponse handle(ClientRequest cr) throws ClientHandlerException {
+        MultivaluedMap<String, Object> headers = cr.getHeaders();
+        headers.add("Authorization", "Basic "+new String(Base64.getEncoder()
+                .encode((this.userName+":"+new String(Base64.getDecoder().decode(this.pwd))).getBytes())));
+        return this.getNext().handle(cr);
     }
 }
 
