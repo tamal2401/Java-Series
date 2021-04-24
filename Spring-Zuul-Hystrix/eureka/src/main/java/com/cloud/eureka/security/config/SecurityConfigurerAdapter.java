@@ -1,17 +1,23 @@
 package com.cloud.eureka.security.config;
 
 import com.netflix.appinfo.ApplicationInfoManager;
+import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.DiscoveryClient;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.filter.ClientFilter;
+import de.codecentric.boot.admin.client.config.ClientProperties;
+import de.codecentric.boot.admin.client.config.InstanceProperties;
+import de.codecentric.boot.admin.client.config.SpringBootAdminClientAutoConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
@@ -48,8 +54,15 @@ public class SecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
     private final ApplicationInfoManager aim;
 
-    public SecurityConfigurerAdapter(ApplicationInfoManager aim) {
+    private ClientProperties configuration;
+    private InstanceProperties adminProp;
+
+    public SecurityConfigurerAdapter(ApplicationInfoManager aim,
+                                     ClientProperties configuration,
+                                     InstanceProperties props) {
         this.aim = aim;
+        this.configuration = configuration;
+        this.adminProp = props;
     }
 
     @Override
@@ -93,25 +106,15 @@ public class SecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
         return template;
     }
 
-    /**
-     * To set current service authdetails in discovery server for other services to read for management endpoints
-     */
     @PostConstruct
     public void setMetadata(){
-        Map<String, String> authMap = new HashMap<>();
-        authMap.put("user.name", this.userName);
-        authMap.put("user.password", this.clientPwd);
-        aim.getInfo().getMetadata().putAll(authMap);
-    }
+        configuration.setPassword("admin");
+        configuration.setUsername(new String(Base64.getDecoder().decode(this.clientPwd)));
 
-    /**
-     * To set Basic Auth header in the outgoing request to eureka server from this service to register itself
-     * Credentials are auth metadata for eureka server
-     */
-    public DiscoveryClient.DiscoveryClientOptionalArgs setDiscoverHeaderArgs(){
-        DiscoveryClient.DiscoveryClientOptionalArgs discoveryClientOptionalArgs = new DiscoveryClient.DiscoveryClientOptionalArgs();
-        discoveryClientOptionalArgs.setAdditionalFilters(Collections.singletonList(new IpClientFilter(this.userName, this.clientPwd)));
-        return discoveryClientOptionalArgs;
+        Map<String, String> adminMetaDataMap = new HashMap<>();
+        adminMetaDataMap.put("user.name", this.userName);
+        adminMetaDataMap.put("user.password", new String(Base64.getDecoder().decode(this.clientPwd)));
+        adminProp.getMetadata().putAll(adminMetaDataMap);
     }
 }
 
@@ -132,25 +135,6 @@ class BasicInterceptor implements ClientHttpRequestInterceptor{
         headers.add("Authorization", "Basic "+new String(Base64.getEncoder()
                 .encode((this.userName+":"+new String(Base64.getDecoder().decode(this.pwd))).getBytes())));
         return execution.execute(request, body);
-    }
-}
-
-class IpClientFilter extends ClientFilter{
-
-    private String userName;
-    private String pwd;
-
-    public IpClientFilter(String userName, String pwd) {
-        this.userName = userName;
-        this.pwd = pwd;
-    }
-
-    @Override
-    public ClientResponse handle(ClientRequest cr) throws ClientHandlerException {
-        MultivaluedMap<String, Object> headers = cr.getHeaders();
-        headers.add("Authorization", "Basic "+new String(Base64.getEncoder()
-                .encode((this.userName+":"+new String(Base64.getDecoder().decode(this.pwd))).getBytes())));
-        return this.getNext().handle(cr);
     }
 }
 

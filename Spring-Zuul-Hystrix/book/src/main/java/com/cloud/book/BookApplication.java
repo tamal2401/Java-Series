@@ -8,7 +8,6 @@ import org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableAutoConfiguration(exclude = {EurekaClientAutoConfiguration.class})
 public class BookApplication {
 
 	public static void main(String[] args) {

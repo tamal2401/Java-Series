@@ -131,7 +131,7 @@ public class SecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
     public void setMetadata(){
         Map<String, String> authMap = new HashMap<>();
         authMap.put("user.name", this.userName);
-        authMap.put("user.password", this.clientPwd);
+        authMap.put("user.password", new String(Base64.getDecoder().decode(this.clientPwd)));
         aim.getInfo().getMetadata().putAll(authMap);
     }
 

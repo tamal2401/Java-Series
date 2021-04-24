@@ -20,7 +20,6 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -35,7 +34,7 @@ import java.io.IOException;
 import java.util.*;
 
 @Configuration
-@PropertySource("classpath: auth.properties")
+@PropertySource("classpath:auth.properties")
 public class SecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
     @Value("${mesh.security.auth.username}")
@@ -47,7 +46,7 @@ public class SecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
     @Value("${mesh.security.auth.client.pwd}")
     private String clientPwd;
 
-    private final ApplicationInfoManager aim;
+    private ApplicationInfoManager aim;
 
     public SecurityConfigurerAdapter(ApplicationInfoManager aim) {
         this.aim = aim;
@@ -101,7 +100,7 @@ public class SecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
     public void setMetadata(){
         Map<String, String> authMap = new HashMap<>();
         authMap.put("user.name", this.userName);
-        authMap.put("user.password", this.clientPwd);
+        authMap.put("user.password", new String(Base64.getDecoder().decode(this.clientPwd)));
         aim.getInfo().getMetadata().putAll(authMap);
     }
 
@@ -109,6 +108,7 @@ public class SecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
      * To set Basic Auth header in the outgoing request to eureka server from this service to register itself
      * Credentials are auth metadata for eureka server
      */
+    @Bean
     public DiscoveryClient.DiscoveryClientOptionalArgs setDiscoverHeaderArgs(){
         DiscoveryClient.DiscoveryClientOptionalArgs discoveryClientOptionalArgs = new DiscoveryClient.DiscoveryClientOptionalArgs();
         discoveryClientOptionalArgs.setAdditionalFilters(Collections.singletonList(new IpClientFilter(this.userName, this.clientPwd)));

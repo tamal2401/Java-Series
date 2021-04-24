@@ -100,7 +100,7 @@ public class SecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
     public void setMetadata(){
         Map<String, String> authMap = new HashMap<>();
         authMap.put("user.name", this.userName);
-        authMap.put("user.password", this.clientPwd);
+        authMap.put("user.password", new String(Base64.getDecoder().decode(this.clientPwd)));
         aim.getInfo().getMetadata().putAll(authMap);
     }
 
@@ -108,6 +108,7 @@ public class SecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
      * To set Basic Auth header in the outgoing request to eureka server from this service to register itself
      * Credentials are auth metadata for eureka server
      */
+    @Bean
     public DiscoveryClient.DiscoveryClientOptionalArgs setDiscoverHeaderArgs(){
         DiscoveryClient.DiscoveryClientOptionalArgs discoveryClientOptionalArgs = new DiscoveryClient.DiscoveryClientOptionalArgs();
         discoveryClientOptionalArgs.setAdditionalFilters(Collections.singletonList(new IpClientFilter(this.userName, this.clientPwd)));
@@ -151,6 +152,11 @@ class IpClientFilter extends ClientFilter{
         headers.add("Authorization", "Basic "+new String(Base64.getEncoder()
                 .encode((this.userName+":"+new String(Base64.getDecoder().decode(this.pwd))).getBytes())));
         return this.getNext().handle(cr);
+    }
+
+    public static void main(String[] args) {
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        System.out.println(encoder.matches("admin", ""));
     }
 }
 

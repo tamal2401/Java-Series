@@ -34,7 +34,7 @@ import java.io.IOException;
 import java.util.*;
 
 @Configuration
-@PropertySource("classpath: auth.properties")
+@PropertySource("classpath:auth.properties")
 public class SecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
     @Value("${mesh.security.auth.username}")
@@ -100,7 +100,7 @@ public class SecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
     public void setMetadata(){
         Map<String, String> authMap = new HashMap<>();
         authMap.put("user.name", this.userName);
-        authMap.put("user.password", this.clientPwd);
+        authMap.put("user.password", new String(Base64.getDecoder().decode(this.clientPwd)));
         aim.getInfo().getMetadata().putAll(authMap);
     }
 
@@ -108,6 +108,7 @@ public class SecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
      * To set Basic Auth header in the outgoing request to eureka server from this service to register itself
      * Credentials are auth metadata for eureka server
      */
+    @Bean
     public DiscoveryClient.DiscoveryClientOptionalArgs setDiscoverHeaderArgs(){
         DiscoveryClient.DiscoveryClientOptionalArgs discoveryClientOptionalArgs = new DiscoveryClient.DiscoveryClientOptionalArgs();
         discoveryClientOptionalArgs.setAdditionalFilters(Collections.singletonList(new IpClientFilter(this.userName, this.clientPwd)));
