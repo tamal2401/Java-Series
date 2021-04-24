@@ -18,7 +18,7 @@ eureka:
     preerIpAddress: true
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://localhost:8761/eureka/
     register-with-eureka: true
     fetch-registry: true
 
@@ -34,7 +34,7 @@ eureka:
     nonSecurePort: 80
   client:
     service-url:
-      defaultZone: ${vcap.services.eureka.credentials.url}/eureka
+      defaultZone: ${vcap.services.eureka.credentials.url}/eureka/
     register-with-eureka: true
     fetch-registry: true
     preerIpAddress: true

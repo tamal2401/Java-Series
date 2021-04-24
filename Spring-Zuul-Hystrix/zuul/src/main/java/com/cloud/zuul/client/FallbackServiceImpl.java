@@ -1,7 +1,10 @@
 package com.cloud.zuul.client;
 
+import static com.netflix.hystrix.contrib.javanica.conf.HystrixPropertiesManager.*;
+
 import com.cloud.zuul.model.FallbackModel;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +25,22 @@ public class FallbackServiceImpl implements FallbackService {
     @LoadBalanced
     RestTemplate template;
 
-    @HystrixCommand(fallbackMethod = "getHystrixResponse")
+    @HystrixCommand(fallbackMethod = "getHystrixResponse",
+                    threadPoolKey = "hystrix-fallback-service",
+                    commandProperties = {
+                            @HystrixProperty(name = EXECUTION_ISOLATION_STRATEGY, value = "THREAD"),
+                            @HystrixProperty(name = EXECUTION_TIMEOUT_ENABLED, value = "true"),
+                            @HystrixProperty(value = EXECUTION_ISOLATION_THREAD_TIMEOUT_IN_MILLISECONDS, name = "5000"),
+                            @HystrixProperty(value = EXECUTION_ISOLATION_THREAD_INTERRUPT_ON_TIMEOUT, name = "false")
+                    }, threadPoolProperties = {
+                            @HystrixProperty(name = CORE_SIZE, value = "5")
+    })
     @Override
     public String call(FallbackModel model) {
         URI uri = UriComponentsBuilder.newInstance()
                             .scheme("http")
                             .host("Fallback-Service")
-                            .path("/fallback/response")
+                            .path("/api/fallback/response")
                             .build()
                             .toUri();
 

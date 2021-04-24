@@ -104,13 +104,13 @@ public class SecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
         return new InMemoryUserDetailsManager(user);
     }
 
-    @Bean("restTemplate")
+    @Bean
     @Primary
     public RestTemplate getNonLoadBlancedTemplate(){
         return getTemplateWithInterceptor();
     }
 
-    @Bean("loadBalancedRestTemplate")
+    @Bean
     @LoadBalanced
     public RestTemplate getLoadBalancedTemplate(){
         return getTemplateWithInterceptor();
@@ -139,6 +139,7 @@ public class SecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
      * To set Basic Auth header in the outgoing request to eureka server from this service to register itself
      * Credentials are auth metadata for eureka server
      */
+    @Bean
     public DiscoveryClient.DiscoveryClientOptionalArgs setDiscoverHeaderArgs(){
         DiscoveryClient.DiscoveryClientOptionalArgs discoveryClientOptionalArgs = new DiscoveryClient.DiscoveryClientOptionalArgs();
         discoveryClientOptionalArgs.setAdditionalFilters(Collections.singletonList(new IpClientFilter(this.userName, this.clientPwd)));

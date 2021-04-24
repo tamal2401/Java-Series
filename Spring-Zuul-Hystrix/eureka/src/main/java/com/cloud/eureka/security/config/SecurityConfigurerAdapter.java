@@ -34,7 +34,7 @@ import java.io.IOException;
 import java.util.*;
 
 @Configuration
-@PropertySource("classpath: auth.properties")
+@PropertySource("classpath:auth.properties")
 public class SecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
     @Value("${mesh.security.auth.username}")

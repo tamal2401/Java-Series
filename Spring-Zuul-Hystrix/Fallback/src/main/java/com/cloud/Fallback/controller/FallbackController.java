@@ -17,7 +17,7 @@ public class FallbackController {
 
     private final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass().getName());
 
-    @PostMapping(value = "/fallback/response",
+    @PostMapping(value = "/api/fallback/response",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public String getFallbackResponse(@RequestBody FallbackModel requestModel) throws JsonProcessingException {
         log.info("=========================================== Response Begin ==================================================");
