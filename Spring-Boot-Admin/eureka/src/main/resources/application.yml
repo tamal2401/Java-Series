@@ -1,0 +1,58 @@
+spring:
+  profiles:
+    active: local, gatekeeper
+---
+spring:
+  application:
+    name: Eureka-Server
+
+server:
+  port: ${vcap.application.port:8761}
+
+---
+spring:
+  profiles: local
+  boot:
+    admin:
+      client:
+        url: http://localhost:8070
+
+eureka:
+  server:
+    enableSelfPreservation: false
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    register-with-eureka: false
+    fetch-registry: false
+
+---
+spring:
+  profiles: cloud
+  boot:
+    admin:
+      client:
+        url: ${vcap.services.admin.credentials.url}
+
+eureka:
+  server:
+    enableSelfPreservation: false
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+---
+spring:
+  profiles: gatekeeper
+
+management:
+  security:
+    enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        exclude: 'env, beans, configprops, threaddump, heapdump'
+  endpoint:
+    health:
+      show-details: WHEN_AUTHORIZED
