@@ -1,0 +1,56 @@
+spring:
+  profiles:
+    active: local, gatekeeper
+---
+spring:
+  application:
+    name: Book-Service
+
+server:
+  port: ${vcap.application.port:8090}
+
+---
+spring:
+  profiles: local
+
+eureka:
+  instance:
+    preerIpAddress: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+
+---
+spring:
+  profiles: cloud
+
+eureka:
+  instance:
+    metadataMaap:
+      instanceId: ${vcap.application.uris[0]}:${server.port}
+    hostname: ${vcap.application.uris[0]}
+    nonSecurePort: 80
+  client:
+    service-url:
+      defaultZone: ${vcap.services.eureka.credentials.url}/eureka
+    register-with-eureka: true
+    fetch-registry: true
+    preerIpAddress: true
+
+---
+spring:
+  profiles: gatekeeper
+
+management:
+  security:
+    enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        exclude: 'env, beans, configprops, threaddump, heapdump'
+  endpoint:
+    health:
+      show-details: WHEN_AUTHORIZED

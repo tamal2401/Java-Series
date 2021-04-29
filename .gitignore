@@ -34,3 +34,8 @@ Spring-Security/.mvn/wrapper/maven-wrapper.jar
 Spring-Cloud-Services/commons-logging/.mvn/wrapper/maven-wrapper.properties
 Spring-Cloud-Services/commons-logging/.mvn/wrapper/MavenWrapperDownloader.java
 Spring-Cloud-Services/commons-logging/.mvn/wrapper/maven-wrapper.properties
+Spring-Boot-Swagger/book/mvnw.cmd
+Spring-Boot-Swagger/book/mvnw
+Spring-Boot-Swagger/book/.mvn/wrapper/MavenWrapperDownloader.java
+Spring-Boot-Swagger/book/.mvn/wrapper/maven-wrapper.properties
+Spring-Boot-Swagger/book/.mvn/wrapper/maven-wrapper.jar
