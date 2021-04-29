@@ -1,12 +1,14 @@
 package com.cloud.book.controller;
 
 import com.cloud.book.model.Book;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+@Api(tags = "Book controller for intercepting requests")
 @RestController
 public class MainController {
 
