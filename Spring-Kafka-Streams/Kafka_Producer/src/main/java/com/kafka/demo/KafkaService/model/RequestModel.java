@@ -6,22 +6,19 @@ import lombok.ToString;
 
 import javax.validation.Valid;
 import java.io.Serializable;
-import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Data
 @NoArgsConstructor
 @ToString
-public class OrderModel implements Serializable {
+public class RequestModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private long orderId;
-    private String eventId;
-    private String eventType;
+    private String categoryName;
+    private long categoryId;
+    private int quantity;
+    private String productName;
     private String processedDateTime;
     private String paymentMode;
     private String transactionId;
-    @Valid
-    private Commodity commodity;
 }
