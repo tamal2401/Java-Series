@@ -12,7 +12,4 @@ public interface OrderDeliveryChannel {
 
     @Output(ORDER_GENERATION_REQUESTED)
     MessageChannel orderGenerationRequested();
-
-    @Input(ORDER_GENERATION_REQUESTED)
-    SubscribableChannel listen();
 }
