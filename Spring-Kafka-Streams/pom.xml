@@ -11,7 +11,7 @@
     </parent>
 
     <name>Spring-Kafka</name>
-    <groupId>com.cloud</groupId>
+    <groupId>com.kafka.demo</groupId>
     <artifactId>kafkamodule</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -22,8 +22,9 @@
     </properties>
 
     <modules>
-        <module>Kafka_Producer</module>
-        <module>Kafka_Subscriber</module>
+        <module>Kafka_Order_Generation</module>
+        <module>Kafka_Order_Confirmation</module>
+		<module>Kafka_Order_Inventory</module>
     </modules>
 
     <dependencies>
