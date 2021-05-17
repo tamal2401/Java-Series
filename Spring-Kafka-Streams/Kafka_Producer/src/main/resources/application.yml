@@ -1,2 +1,51 @@
+spring:
+  profiles:
+    active: local
+
 server:
   port: 8081
+
+---
+spring:
+  application:
+    name: Kafka_Producer
+  profile: local
+  cloud:
+    stream:
+      bindings:
+        orderGenerationRequested:
+          destination: ${topic.orderGeneration}
+          contentType: application/json
+      default-binder: kafka
+      kafka:
+        binder:
+          brokers: localhost
+          defaultBrokerPort: 9092
+          autoCreateTopics: true
+          requiredAcks: 2
+          autoAddPartitions: true
+          consumerProperties:
+            autoCommitOnError: true
+            autoCommitOffset: true
+          producerProperties:
+            acks: all
+            retries: 3
+            retry.backoff.ms: 100
+            linger.ms: 100
+            batch.size: 1700
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:testDb
+    username: admin
+    password: admin
+  jpa:
+    hibernate.ddl-auto: create
+    generate-ddl: true
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2
+
+topic:
+  orderGeneration: t.order.generation.request

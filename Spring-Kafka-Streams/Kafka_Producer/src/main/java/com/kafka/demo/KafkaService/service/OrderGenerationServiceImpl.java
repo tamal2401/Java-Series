@@ -8,7 +8,9 @@ import com.kafka.demo.KafkaService.repository.OrderRepository;
 import com.kafka.demo.KafkaService.util.LoggUtil;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderGenerationServiceImpl implements OrderGenerationService {
 
     private static final Logger log = LoggUtil.getLogger(OrderGenerationServiceImpl.class);

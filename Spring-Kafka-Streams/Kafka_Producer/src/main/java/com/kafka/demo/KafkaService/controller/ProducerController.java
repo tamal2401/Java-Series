@@ -17,7 +17,7 @@ import java.util.UUID;
 @RestController
 public class ProducerController {
 
-    @Value("${topic.order.generation}")
+    @Value("${topic.orderGeneration}")
     String generationTopicName;
 
     @Autowired
