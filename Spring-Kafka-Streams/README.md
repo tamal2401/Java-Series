@@ -1,7 +1,8 @@
 ## Server Ports identifier ##
 
-> 1. Kafka_Producer   : 8081
-> 2. Kafka_Subscriber : 8082
+> 1. Kafka_Order_Generation   : 8081
+> 2. Kafka_Order_Inventory    : 8083
+> 3. Kafka_Order_Confirmation : 8082
 
 
 

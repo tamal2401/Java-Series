@@ -1,0 +1,46 @@
+spring:
+  profiles:
+    active: local
+
+server:
+  port: 8083
+
+topic:
+  orderGeneration: t.order.generation.request
+  productNotAvailable: t.order.inventory.not_available
+  productAvailable: t.order.inventory.available
+
+---
+spring:
+  application:
+    name: Kafka_Order_Inventory
+  profile: local
+  cloud:
+    stream:
+      bindings:
+        orderGenerationRequested:
+          destination: ${topic.orderGeneration}
+          contentType: application/json
+        productNotAvailable:
+          destination: ${topic.productNotAvailable}
+          contentType: application/json
+        productAvailable:
+          destination: ${topic.productAvailable}
+          contentType: application/json
+      default-binder: kafka
+      kafka:
+        binder:
+          brokers: localhost
+          defaultBrokerPort: 9092
+          autoCreateTopics: true
+          requiredAcks: 2
+          autoAddPartitions: true
+          consumerProperties:
+            autoCommitOnError: true
+            autoCommitOffset: true
+          producerProperties:
+            acks: all
+            retries: 3
+            retry.backoff.ms: 100
+            linger.ms: 100
+            batch.size: 1700
