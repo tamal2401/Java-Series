@@ -43,4 +43,10 @@ public class OrderReceivedEntity {
 
     @Column
     private String productName;
+
+    @Column
+    private String userName;
+
+    @Column
+    private String userMailId;
 }
