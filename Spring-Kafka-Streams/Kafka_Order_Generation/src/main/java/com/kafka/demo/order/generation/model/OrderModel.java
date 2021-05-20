@@ -22,4 +22,6 @@ public class OrderModel implements Serializable {
     private String transactionId;
     @Valid
     private Commodity commodity;
+    @Valid
+    private User user;
 }
