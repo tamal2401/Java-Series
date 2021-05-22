@@ -21,4 +21,6 @@ public class RequestModel implements Serializable {
     private String processedDateTime;
     private String paymentMode;
     private String transactionId;
+
+    private String userId;
 }
