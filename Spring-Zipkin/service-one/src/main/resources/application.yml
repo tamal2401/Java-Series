@@ -1,0 +1,6 @@
+spring:
+  apllication:
+    name: Service-three
+
+Server:
+  port: 8082

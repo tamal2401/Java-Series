@@ -1,0 +1,6 @@
+spring:
+  apllication:
+    name: Service-two
+
+Server:
+  port: 8084

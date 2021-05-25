@@ -1,0 +1,6 @@
+spring:
+  apllication:
+    name: Service-one
+
+Server:
+  port: 8083

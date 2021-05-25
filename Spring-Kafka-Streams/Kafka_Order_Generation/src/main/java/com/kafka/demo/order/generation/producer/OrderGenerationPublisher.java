@@ -24,12 +24,12 @@ public class OrderGenerationPublisher {
 
         Message msg = getMessage(headers, model);
 
-        try{
+        try {
             channel.send(msg);
-            log.info("Message published in topic {} :: {}",model.getEventType(), msg);
-        }catch (Exception e){
-log.error("Exception occured while publishing msg in topic {}, Message => {}", model.getEventType(), msg);
-        log.error(ExceptionUtil.getStackTrace(e));
+            log.info("Message published in topic {} :: {}", model.getEventType(), msg);
+        } catch (Exception e) {
+            log.error("Exception occOrderGenerationRequestListenerured while publishing msg in topic {}, Message => {}", model.getEventType(), msg);
+            log.error(ExceptionUtil.getStackTrace(e));
         }
     }
 
