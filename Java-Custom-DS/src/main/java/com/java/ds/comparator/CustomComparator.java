@@ -1,3 +1,6 @@
+/**
+ * Comparator example using JAVA8
+ */
 package com.java.ds.comparator;
 
 import java.util.Arrays;
