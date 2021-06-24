@@ -1,47 +1,22 @@
 package com.java.ds.comparator;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Demo {
 
-    public static String timeConversion(String s) {
+    public static List<Integer> gradingStudents(List<Integer> grades) {
         // Write your code here
-        StringBuilder time = new StringBuilder();
-        if(s.contains("AM")){
-            String currentTime = s.split("AM")[0];
-            String[] timeArr = currentTime.split(":");
-            int hour = Integer.parseInt(timeArr[0]);
-            int min = Integer.parseInt(timeArr[1]);
-            int sec = Integer.parseInt(timeArr[2]);
-            if(hour==12){
-                time.append("00");
-            }else{
-                time.append(hour<10?"0"+hour:hour);
+        List<Integer> finalGrades = new ArrayList<>();
+        finalGrades = grades.stream().map(each -> {
+            if (each % 5 <= 3 || each < 38) {
+                return each;
+            } else {
+                return (each + (5 - each % 5));
             }
-            time.append(":");
-            time.append(min<10?"0"+min:min);
-            time.append(":");
-            time.append(sec<10?"0"+sec:sec);
-            time.append("AM");
-        }else{
-            String currentTime = s.split("PM")[0];
-            String[] timeArr = currentTime.split(":");
-            int hour = Integer.parseInt(timeArr[0]);
-            int min = Integer.parseInt(timeArr[1]);
-            int sec = Integer.parseInt(timeArr[2]);
-            if(hour==12){
-                time.append("12");
-            }else{
-                time.append(12+hour);
-            }
-            time.append(":");
-            time.append(min<10?"0"+min:min);
-            time.append(":");
-            time.append(sec<10?"0"+sec:sec);
-            time.append("PM");
-        }
-        return time.toString();
+        }).collect(Collectors.toList());
+        return finalGrades;
     }
 
-    public static void main(String[] args) {
-        System.out.println(timeConversion("07:05:45PM"));
-    }
 }
