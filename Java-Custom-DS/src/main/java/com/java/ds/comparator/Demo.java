@@ -1,22 +1,42 @@
 package com.java.ds.comparator;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Demo {
 
-    public static List<Integer> gradingStudents(List<Integer> grades) {
+    public static int migratoryBirds(List<Integer> arr) {
         // Write your code here
-        List<Integer> finalGrades = new ArrayList<>();
-        finalGrades = grades.stream().map(each -> {
-            if (each % 5 <= 3 || each < 38) {
-                return each;
-            } else {
-                return (each + (5 - each % 5));
+        Map<Integer, Integer> birdMap = new HashMap<>();
+        for(int i=0; i<arr.size(); i++){
+            if(birdMap.get(arr.get(i))==null){
+                birdMap.put(arr.get(i), 1);
+            }else{
+                int val = birdMap.get(arr.get(i));
+                val++;
+                birdMap.put(arr.get(i), val);
             }
-        }).collect(Collectors.toList());
-        return finalGrades;
+        }
+        int minKey = arr.get(0);
+        int maxCount = birdMap.get(minKey);
+        for(Integer key : birdMap.keySet()){
+            Integer value = birdMap.get(key);
+            if(value>maxCount){
+                minKey = key;
+                maxCount = value;
+            }else if(value == maxCount && key<minKey){
+                minKey = key;
+                maxCount = value;
+            }
+        }
+        System.out.println(minKey);
+        return minKey;
     }
+
+    public static void main(String[] args) {
+        List<Integer> list = Arrays.asList(1,4,4,4,5,3);
+        migratoryBirds(list);
+    }
+
 
 }
