@@ -18,7 +18,7 @@ public class ObserverExample{
 			return each;
 		})
 		.subscribe(stock -> System.out.println(stock.toString()),
-				error -> System.out.println(error));
+				System.out::println);
 	}
 
 	private static Observable<Stock> getObserver() {
