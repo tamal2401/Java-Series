@@ -4,3 +4,8 @@ spring:
 
 server:
   port: ${vcap.application.port:8090}
+
+security:
+  swagger:
+    enabled: true
+    authType: basicAuth
