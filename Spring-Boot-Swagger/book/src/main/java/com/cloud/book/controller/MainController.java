@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 @Api(tags = "Book controller for intercepting requests")
 @RestController
@@ -41,10 +42,17 @@ public class MainController {
     public Book getBookById(@RequestParam("id") long bookId){
         Iterator<Book> itr = allBooks.iterator();
         while(itr.hasNext()){
-            if(bookId == itr.next().getId()) {
-                return itr.next();
+            Book book = itr.next();
+            if(bookId == book.getId()) {
+                return book;
             }
         }
         return new Book();
+    }
+
+    @GetMapping("/api/print")
+    public void getBookById(@RequestParam Map<String, String> identifiers){
+        System.out.println("debug");
+        identifiers.forEach((key, value) -> System.out.printf("key:%s , value: %s%n", key, value));
     }
 }
