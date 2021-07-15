@@ -1,28 +1,81 @@
 package com.cloud.book;
 
 import com.google.common.base.Predicates;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.SecurityConfiguration;
+import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 public class SwaggerConfiguration extends WebMvcConfigurationSupport {
 
+    @Value("${security.swagger.enabled:false}")
+    public boolean swaggerFlag;
+
+    @Value("${security.swagger.authType:basicAuth}")
+    public String securityType;
+
+    private SecurityScheme basicAuthScheme() {
+        return new BasicAuth("basicAuth");
+    }
+
+    private ApiKey apiKey() {
+        return new ApiKey("oauth", "Authorization", "header");
+    }
+
+    private SecurityReference[] basicAuthReference() {
+        if (swaggerFlag) {
+            if(securityType.equalsIgnoreCase("basicAuth")){
+                SecurityReference basicAuthReference = new SecurityReference("basicAuth", new AuthorizationScope[0]);
+                return new SecurityReference[]{basicAuthReference};
+            }else if(securityType.equalsIgnoreCase("oauth")){
+                SecurityReference oauthReference = new SecurityReference("oauth", new AuthorizationScope[0]);
+                return new SecurityReference[]{oauthReference};
+            }
+        }
+        return new SecurityReference[0];
+    }
+
+    private SecurityContext securityContext() {
+        return SecurityContext.builder()
+                .securityReferences(Arrays.asList(basicAuthReference()))
+                .forPaths(PathSelectors.ant("/**"))
+                .build();
+    }
+
+    @Bean
     public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
+        Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.cloud.book.controller"))
                 .paths(PathSelectors.ant("/api/**"))
-                .paths(Predicates.not(PathSelectors.regex("/error")))
                 .build()
                 .apiInfo(apiEndpointsInfo());
+        if (swaggerFlag) {
+            if(securityType.equalsIgnoreCase("basicAuth")){
+                docket.securityContexts(Arrays.asList(securityContext()));
+                docket.securitySchemes(Arrays.asList(basicAuthScheme()));
+            }else if(securityType.equalsIgnoreCase("oauth")){
+                docket.securityContexts(Arrays.asList(securityContext()));
+                docket.securitySchemes(Arrays.asList(apiKey()));
+            }
+        }
+        return docket;
     }
 
     private ApiInfo apiEndpointsInfo() {
@@ -50,5 +103,18 @@ public class SwaggerConfiguration extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/documentation/**").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+
+    @Bean
+    SecurityConfiguration security() {
+        return SecurityConfigurationBuilder.builder()
+                .clientId("test-app-client-id")
+                .clientSecret("test-app-client-secret")
+                .realm("test-app-realm")
+                .appName("test-app")
+                .scopeSeparator(",")
+                .additionalQueryStringParams(null)
+                .useBasicAuthenticationWithAccessCodeGrant(false)
+                .build();
     }
 }
