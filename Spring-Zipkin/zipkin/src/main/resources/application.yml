@@ -1,0 +1,6 @@
+spring:
+  apllication:
+    name: Zipkin-Service
+
+Server:
+  port: 8081
