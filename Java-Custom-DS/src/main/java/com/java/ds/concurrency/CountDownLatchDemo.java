@@ -13,7 +13,7 @@ public class CountDownLatchDemo {
 		//new Thread(new Service(2000, counter, "service-4")).start();
 
 		try {
-			counter.await(5, TimeUnit.SECONDS);
+			counter.await(5000, TimeUnit.MILLISECONDS);
 			System.out.println("All pre tasks are completed");
 		}catch(InterruptedException e) {
 			System.out.println(e.getMessage());
