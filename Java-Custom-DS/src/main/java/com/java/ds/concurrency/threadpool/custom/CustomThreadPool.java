@@ -25,8 +25,7 @@ public class CustomThreadPool {
 
 		for(Thread eachThread:workerThread) {
 			eachThread = new Worker("custom-thread-"+i);
-			workerThread[i]=eachThread;
-			i++;
+			workerThread[i++]=eachThread;
 			eachThread.start();
 		}
 	}
@@ -52,7 +51,7 @@ public class CustomThreadPool {
 
 		@Override
 		public void run() {
-			while(!isStopped) {
+			while(!isStopped && !Thread.currentThread().isInterrupted()) {
 				try {
 					workerQueue.take().run();
 				} catch (InterruptedException e) {

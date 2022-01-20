@@ -3,6 +3,10 @@
  */
 package com.java.ds.hashmap.custom;
 
+import java.util.Comparator;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 public class CustomHashMap<k, v> {
 
     public Entry<k, v>[] table;
@@ -95,7 +99,6 @@ public class CustomHashMap<k, v> {
      */
     public boolean remove(k deleteKey){
         int hash = hash(deleteKey);
-
         if(null==table[hash]){
             return false;
         }else{
