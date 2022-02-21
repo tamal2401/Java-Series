@@ -7,6 +7,11 @@ import org.quartz.JobExecutionContext;
 
 public class CustomJob implements Job {
 
+
+    /**
+     * Execute custom job logic
+     * @param jobExecutionContext
+     */
     @Override
     public void execute(JobExecutionContext jobExecutionContext) {
         final JobDataMap dataMap = jobExecutionContext.getMergedJobDataMap();
