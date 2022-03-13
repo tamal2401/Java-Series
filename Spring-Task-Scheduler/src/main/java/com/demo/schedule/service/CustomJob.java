@@ -5,6 +5,8 @@ import org.quartz.Job;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 
+import java.util.Arrays;
+
 public class CustomJob implements Job {
 
 
