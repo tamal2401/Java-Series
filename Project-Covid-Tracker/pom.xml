@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <jsoup.version>1.12.1</jsoup.version>
+        <jsoup.version>1.15.3</jsoup.version>
         <csv.version>1.4</csv.version>
         <jython.version>2.7.1</jython.version>
         <bts.version>3.3.7</bts.version>
